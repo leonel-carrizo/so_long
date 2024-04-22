@@ -6,8 +6,17 @@
 /*   By: lcarrizo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 20:17:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/04/20 20:17:11 by lcarrizo         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:35:29 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/so_long.h"
 
+int	main(int argc, char *argv[])
+{
+	(void)argc;
+	(void)argv;
+	void	*mlx;
+
+	mlx = mlx_init();
+}
