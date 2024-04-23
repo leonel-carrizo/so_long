@@ -6,7 +6,7 @@
 #    By: lcarrizo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 17:53:32 by lcarrizo          #+#    #+#              #
-#    Updated: 2024/04/23 11:01:15 by lcarrizo         ###    ###london.com     #
+#    Updated: 2024/04/23 12:11:50 by lcarrizo         ###    ###london.com     #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,19 +43,24 @@ MLXFLAGS		= -L$(MLX_DIR) -l$(MLX) -I$(MLX_DIR) -lXext - lX11 -lm
 
 all:			$(NAME)
 
-$(LIBFT):
-			@make -s -C $(LIBFT_DIR)
-
-$(MLX):
-			@wget -q -O $(MLX_ZIP) $(MLX_URL) 
-			@unzip -q $(MLX_ZIP)
-			@mv minilibx-linux-master $(MLX_DIR)
-			$(RM) libmlx.zip
-			@make -s -C $(MLX_DIR)
-
 $(NAME):		$(MLX) $(LIBFT) $(OBJ) $(OBJ_UTILS)
 			$(CC) $(CFLAGS) $(OBJ) $(OBJ_UTILS) $(LIBFT) $(MLXFLAGS) -o $(NAME) -g
 			@echo "so_long executable created!"
+
+$(LIBFT):
+			@make -s -C $(LIBFT_DIR)
+
+$(MLX_ZIP):
+			@if [ ! -e $(MLX_ZIP) ]; then \
+				echo "Downloading Minilibx..."; \
+				wget -q -O $(MLX_ZIP) $(MLX_URL); \
+			else echo "Minilibx Downloaded."; fi
+				
+$(MLX):			$(MLX_ZIP)
+			@if [ ! -e $(MLX_DIR) ]; then \
+				unzip -q $(MLX_ZIP); \
+				mv minilibx-linux-master $(MLX_DIR); fi
+			@make -s -C $(MLX_DIR)
 
 $(OBJ_DIR)%.o:		$(SRC_DIR)%.c
 			@mkdir -p $(OBJ_DIR)
@@ -72,7 +77,7 @@ debug:			$(LIBFT) $(LIBMLX)
 			$(CC) $(CFLAGS) $(SRCS) $(wildcard $(UTILS_DIR)/*.c) $(LIBFT) $(LIBMLX) -o $(NAME) -g
 			@echo "Debugables Created!"
 
-clean:		
+clean:
 			$(RM) $(OBJ_DIR)
 			@make -s -C $(LIBFT_DIR) clean
 			-@make -s -C $(MLX_DIR) clean
