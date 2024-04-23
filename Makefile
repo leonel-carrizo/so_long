@@ -6,7 +6,7 @@
 #    By: lcarrizo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 17:53:32 by lcarrizo          #+#    #+#              #
-#    Updated: 2024/04/22 21:47:35 by lcarrizo         ###   ########.fr        #
+#    Updated: 2024/04/23 11:01:15 by lcarrizo         ###    ###london.com     #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ NAME			= so_long
 LIBFT			= lib/libft/libft.a
 LIBFT_DIR		= lib/libft/
 MLX_URL			= https://github.com/42Paris/minilibx-linux/archive/refs/heads/master.zip
+MLX_ZIP			= libmlx.zip
 MLX			= mlx
 MLX_DIR			= lib/libmlx/
 INCLUDE			= include/
@@ -46,8 +47,8 @@ $(LIBFT):
 			@make -s -C $(LIBFT_DIR)
 
 $(MLX):
-			@wget -q -O ./libmlx.zip $(MLX_URL) 
-			@unzip -q libmlx.zip
+			@wget -q -O $(MLX_ZIP) $(MLX_URL) 
+			@unzip -q $(MLX_ZIP)
 			@mv minilibx-linux-master $(MLX_DIR)
 			$(RM) libmlx.zip
 			@make -s -C $(MLX_DIR)
@@ -56,7 +57,7 @@ $(NAME):		$(MLX) $(LIBFT) $(OBJ) $(OBJ_UTILS)
 			$(CC) $(CFLAGS) $(OBJ) $(OBJ_UTILS) $(LIBFT) $(MLXFLAGS) -o $(NAME) -g
 			@echo "so_long executable created!"
 
-$(OBJ_DIR)/%.o:		$(SRC_DIR)%.c
+$(OBJ_DIR)%.o:		$(SRC_DIR)%.c
 			@mkdir -p $(OBJ_DIR)
 			@echo "Object Directory Created!"
 			$(CC) $(CFLAGS) -c $< -o $@
@@ -74,13 +75,14 @@ debug:			$(LIBFT) $(LIBMLX)
 clean:		
 			$(RM) $(OBJ_DIR)
 			@make -s -C $(LIBFT_DIR) clean
-			@make -s -C $(MLX_DIR) clean
+			-@make -s -C $(MLX_DIR) clean
+			-@$(RM) $(MLX_ZIP)
 			@echo "** clean so_long done!**"
 			
 fclean:			clean
 			$(RM) $(NAME)
 			@make -s -C $(LIBFT_DIR) fclean
-			@$(RM) lib/libmlx
+			-@$(RM) $(MLX_DIR)
 			@echo "** full clean so_long done!**"
 
 re:			fclean all
