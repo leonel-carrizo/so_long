@@ -35,7 +35,7 @@ OBJ			= $(addprefix $(OBJ_DIR), $(notdir $(SRCS:.c=.o)))
 CC			= cc
 RM 			= rm -rf
 CFLAGS			= -Wall -Werror -Wextra -I$(INCLUDE)
-MLXFLAGS		= -L$(MLX_DIR) -l$(MLX) -I$(MLX_DIR) -lXext - lX11 -lm
+MLXFLAGS		= -L$(MLX_DIR) -l$(MLX) -I$(MLX_DIR) -lXext -lX11 -lmlx
 
 ################################    RULES    ###################################
 
