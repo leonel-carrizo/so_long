@@ -6,7 +6,7 @@
 #    By: lcarrizo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 17:53:32 by lcarrizo          #+#    #+#              #
-#    Updated: 2024/04/23 12:11:50 by lcarrizo         ###    ###london.com     #
+#    Updated: 2024/05/20 11:14:09 by lcarrizo         ###    ###london.com     #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,4 +92,4 @@ fclean:			clean
 
 re:			fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re debug
