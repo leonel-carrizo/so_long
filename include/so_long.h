@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:05:04 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/05/27 14:35:08 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/03 10:48:49 by lcarrizo         ###    ###london.com    */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../lib/libft/include/libft.h"
 # include "../lib/libmlx/mlx.h"
+# include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>

@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizu@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 20:17:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/05/29 00:15:21 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/03 10:03:29 by lcarrizo         ###    ###london.com    */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ int	main(int argc, char *argv[])
 	mlx = mlx_init();
 	if (!mlx)
 		return (1);
-	mlx_win = mlx_new_window(mlx, 800, 600, "so_long game");
+	mlx_win = mlx_new_window(mlx, WIN_WIDTH, WIN_HEIGHT, "so_long game");
 	if (!mlx_win)
 		return (free(mlx), 1);
+	mlx_loop(mlx);
 	mlx_destroy_window(mlx, mlx_win);
 	mlx_destroy_display(mlx);
 	free(mlx);
