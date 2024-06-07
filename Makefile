@@ -6,7 +6,7 @@
 #    By: lcarrizo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 17:53:32 by lcarrizo          #+#    #+#              #
-#    Updated: 2024/05/20 11:14:09 by lcarrizo         ###    ###london.com     #
+#    Updated: 2024/06/07 13:19:59 by lcarrizo         ###    ###london.com     #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,10 @@ OBJ_DIR			= .obj/
 SRCS_UTILS		= $(wildcard $(UTILS_DIR)*.c)
 OBJ_UTILS		= $(addprefix $(OBJ_DIR)utils/, $(notdir $(SRCS_UTILS:.c=.o)))
 
-SRCS			= $(wildcard $(SRC_DIR)*.c)
-OBJ			= $(addprefix $(OBJ_DIR), $(notdir $(SRCS:.c=.o)))
+#SRCS			= $(wildcard $(SRC_DIR)*.c)
+SRCS			= $(shell find $(SRC_DIR) -name "*.c")
+OBJ			= $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
+#OBJ			= $(addprefix $(OBJ_DIR), $(notdir $(SRCS:.c=.o)))
 
 #############################    COMMANDS   ##################################
 
@@ -63,7 +65,8 @@ $(MLX):			$(MLX_ZIP)
 			@make -s -C $(MLX_DIR)
 
 $(OBJ_DIR)%.o:		$(SRC_DIR)%.c
-			@mkdir -p $(OBJ_DIR)
+			@mkdir -p $(dir $@)
+			#@mkdir -p $(OBJ_DIR)
 			@echo "Object Directory Created!"
 			$(CC) $(CFLAGS) -c $< -o $@
 
@@ -81,13 +84,13 @@ clean:
 			$(RM) $(OBJ_DIR)
 			@make -s -C $(LIBFT_DIR) clean
 			-@make -s -C $(MLX_DIR) clean
-			-@$(RM) $(MLX_ZIP)
 			@echo "** clean so_long done!**"
 			
 fclean:			clean
 			$(RM) $(NAME)
 			@make -s -C $(LIBFT_DIR) fclean
 			-@$(RM) $(MLX_DIR)
+			-@$(RM) $(MLX_ZIP)
 			@echo "** full clean so_long done!**"
 
 re:			fclean all
