@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizu@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 20:17:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/06 14:50:36 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/08 14:21:00 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	main(int argc, char *argv[])
 	draw_map(&game);
 	mlx_key_hook(game.win, key_press, &game);
 	mlx_loop(game.mlx);
-
 	free_game(&game);
 	return (0);
 }

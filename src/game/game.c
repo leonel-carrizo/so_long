@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:42:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/01 14:44:09 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/08 14:05:16 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void   init_images(t_game *game)
 	game->img_wall = mlx_xpm_file_to_image(game->mlx, "assets/images/wall1.xpm", &width, &height);
 	game->img_floor = mlx_xpm_file_to_image(game->mlx, "assets/images/floor1.xpm", &width, &height);
 	game->img_player = mlx_xpm_file_to_image(game->mlx, "assets/images/player_front.xpm", &width, &height);
-	game->img_collect = mlx_xpm_file_to_image(game->mlx, "assets/images/coin1.xpm", &width, &height);
+	game->img_collect = mlx_xpm_file_to_image(game->mlx, "assets/images/coin_1.xpm", &width, &height);
 	game->img_exit = mlx_xpm_file_to_image(game->mlx, "assets/images/door_closed.xpm", &width, &height);
 }
 
@@ -30,7 +30,7 @@ void	init_game(t_game *game, char *map_path)
 {
 	game->mlx = mlx_init();
 	load_map(&game->map, map_path);
-	game->win = mlx_new_window(game->mlx, game->map.width * TILE_SIZE, game->map.height * TILE_SIZE, "so_long");
+	game->win = mlx_new_window(game->mlx, game->map.width * TILE_SIZE, game->map.height * TILE_SIZE, "so_long game");
 	init_images(game);
 }
 

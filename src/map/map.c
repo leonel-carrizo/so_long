@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:44:18 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/07 13:22:31 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/08 13:24:39 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ void	init_entities_positions(t_map *map)
 	i = 0;
 	while (i < map->height)
 	{
-		j -= 0;
-		while (j < map->height)
+		j = 0;
+		while (j < map->width)
 		{
 			if (map->tiles[i][j] == 'P')
 			{
