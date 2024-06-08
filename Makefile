@@ -6,7 +6,7 @@
 #    By: lcarrizo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 17:53:32 by lcarrizo          #+#    #+#              #
-#    Updated: 2024/06/07 13:19:59 by lcarrizo         ###    ###london.com     #
+#    Updated: 2024/06/08 11:51:14 by lcarrizo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,7 @@ $(OBJ_DIR)utils/%.o:	$(UTILS_DIR)%.c
 
 # create executables which can be debugged with gdb.
 debug:			$(LIBFT) $(LIBMLX)
-			$(CC) $(CFLAGS) $(SRCS) $(wildcard $(UTILS_DIR)/*.c) $(LIBFT) $(LIBMLX) -o $(NAME) -g
+			$(CC) $(CFLAGS) $(SRCS) $(wildcard $(UTILS_DIR)/*.c) $(LIBFT) $(MLXFLAGS) $(LIBMLX) -o $(NAME) -g
 			@echo "Debugables Created!"
 
 clean:
