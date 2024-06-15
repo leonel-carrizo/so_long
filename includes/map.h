@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 23:30:42 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/06 13:34:01 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/10 14:23:28 by lcarrizo         ###    ###london.com    */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,26 @@ typedef struct s_position
 
 typedef struct s_collectible
 {
+	int			collected;
 	t_position	position;
-	int	collected;
 }	t_collect;
 
 typedef struct s_exit
 {
+	int			is_open;
 	t_position	pos;
-	int	is_open;
 }	t_exit;
 
 typedef struct s_map
 {
-	int	width;
-	int	height;
-	int	n_collect;
-	char	**tiles;
+	int			width;
+	int			height;
+	int			n_collect;
+	char		**tiles;
 	t_position	player_pos;
-	t_exit	exit;
+	t_exit		exit;
 	t_collect	*collect;
 }	t_map;
-
 
 void	load_map(t_map *map, char *file_path);
 void	allocate_map(t_map *map, int width, int height);
