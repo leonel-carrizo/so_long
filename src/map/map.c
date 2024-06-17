@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:44:18 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/15 17:52:57 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/17 15:05:32 by lcarrizo         ###    ###london.com    */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	count_map_dimensions(t_map *map, char *file_path)
 	while (line != NULL)
 	{
 		if (map->width == 0)
-			map->width = ft_strlen(line);
+			map->width = ft_strlen(line) - 1;
 		map->height++;
 		free(line);
 		line = get_next_line(fd);
@@ -56,7 +56,7 @@ void	allocate_map(t_map *map, int width, int height)
 	i = 0;
 	while (i < height)
 	{
-		map->tiles[i] = (char *)malloc((width + 1) * sizeof(char));
+		map->tiles[i] = (char *)malloc((width + 2) * sizeof(char));
 		i++;
 	}
 }

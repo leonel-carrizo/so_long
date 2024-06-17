@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizu@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 20:17:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/17 13:20:41 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/17 15:09:37 by lcarrizo         ###    ###london.com    */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,15 @@ void	update_position(int keycode, int *new_x, int *new_y)
 /* Checks if the player's move is valid */
 int	is_valid_move(t_game *game, int new_x, int new_y)
 {
-	return (new_x >= 0 && new_x < game->map.width && new_y >= 0
-		&& new_y < game->map.height && game->map.tiles[new_y][new_x] != '1');
+	game->map.exit.is_open = 0;
+	if (new_x < 0 || new_x >= game->map.width || new_y < 0
+		|| new_y >= game->map.height)
+		return (0);
+	if (game->map.tiles[new_y][new_x] == '1')
+		return (0);
+	if (game->map.tiles[new_y][new_x] == 'E' && !game->map.exit.is_open)
+		return (0);
+	return (1);
 }
 
 int	main(int argc, char *argv[])
@@ -70,6 +77,5 @@ int	main(int argc, char *argv[])
 	draw_map(&game);
 	mlx_key_hook(game.win, key_press, &game);
 	mlx_loop(game.mlx);
-	// free_game(&game);
 	return (0);
 }

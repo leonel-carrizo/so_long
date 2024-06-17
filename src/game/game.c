@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:42:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/15 19:11:53 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/17 14:29:45 by lcarrizo         ###    ###london.com    */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,6 @@ void	init_images(t_game *game)
 			game->mlx, "assets/images/door_closed.xpm", &width, &height);
 }
 
-/* Initialize the game and load the map */
-void	init_game(t_game *game, char *map_path)
-{
-	game->mlx = mlx_init();
-	load_map(&game->map, map_path);
-	init_images(game);
-	game->win = mlx_new_window(
-			game->mlx, game->map.width * TILE_SIZE,
-			game->map.height * TILE_SIZE, "so_long game");
-}
-
 /* Release the resources assigned to the game */
 void	free_game(t_game *game)
 {
@@ -62,4 +51,25 @@ void	free_game(t_game *game)
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
+}
+
+/* Initialize the game and load the map */
+void	init_game(t_game *game, char *map_path)
+{
+	game->mlx = mlx_init();
+	if (!game->mlx)
+	{
+		free_game(game);
+		exit(EXIT_FAILURE);
+	}
+	load_map(&game->map, map_path);
+	init_images(game);
+	game->win = mlx_new_window(
+			game->mlx, game->map.width * TILE_SIZE,
+			game->map.height * TILE_SIZE, "so_long game");
+	if (!game->win)
+	{
+		free_game(game);
+		exit(EXIT_FAILURE);
+	}
 }
