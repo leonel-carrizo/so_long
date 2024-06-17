@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizu@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 20:17:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/15 16:49:30 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/17 13:20:41 by lcarrizo         ###    ###london.com    */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	key_press(int keycode, t_game *game)
 	int	new_x;
 	int	new_y;
 
-	if (keycode == 65307)
+	if (keycode == ESC)
 	{
 		free_game(game);
 		exit(EXIT_SUCCESS);
@@ -40,14 +40,14 @@ int	key_press(int keycode, t_game *game)
 /* Updates the player's position based on the key pressed */
 void	update_position(int keycode, int *new_x, int *new_y)
 {
-	if (keycode == 65361) // left
+	if (keycode == A || keycode == LEFT) // left
 		(*new_x)--;
-	else if (keycode == 65362) // up
+	else if (keycode == W || keycode == UP) // up
 		(*new_y)--;
-	else if (keycode == 65363) // right
-		(new_x)++;
-	else if (keycode == 65364) // down
-		(new_y)++;
+	else if (keycode == D || keycode == RIGHT) // right
+		(*new_x)++;
+	else if (keycode == S || keycode == DOWN) // down
+		(*new_y)++;
 }
 
 /* Checks if the player's move is valid */

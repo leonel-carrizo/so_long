@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:05:04 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/10 14:21:16 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/17 13:17:30 by lcarrizo         ###    ###london.com    */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,18 @@
 # ifndef WIN_HEIGHT
 #  define WIN_HEIGHT 920
 # endif
+
+// GAME KEYWORDS
+# define ESC 65307
+# define W 0x77
+# define UP 65362
+# define A 0x61
+# define LEFT 65361
+# define S 0x73
+# define DOWN 65364
+# define D 0x64
+# define RIGHT 65363
+# define RESTART 114
 
 /* Handles keyboard events */
 int		key_press(int keycode, t_game *game);
