@@ -6,11 +6,32 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:45:07 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/17 15:08:05 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/18 11:40:16 by lcarrizo         ###    ###london.com    */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/so_long.h"
+
+/* Updates the door status if all collectibles have been collected */
+void	update_door_state(t_game *game)
+{
+	int	i;
+	int	collected_all;
+
+	i = 0;
+	collected_all = 1;
+	while (i < game->map.num_collec)
+	{
+		if (!game->map.collec[i].collected)
+		{
+			collected_all = 0;
+			break ;
+		}
+		i++;
+	}
+	if (collected_all)
+		game->map.exit_door.is_open = 1;
+}	
 
 /* Draws an image at the specified position */
 void	draw_tile(t_game *game, void *img, int x, int y)
