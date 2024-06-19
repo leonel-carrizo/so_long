@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizu@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 20:17:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/17 15:09:37 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/19 11:23:55 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ int	key_press(int keycode, t_game *game)
 /* Updates the player's position based on the key pressed */
 void	update_position(int keycode, int *new_x, int *new_y)
 {
-	if (keycode == A || keycode == LEFT) // left
+	if (keycode == A || keycode == LEFT)
 		(*new_x)--;
-	else if (keycode == W || keycode == UP) // up
+	else if (keycode == W || keycode == UP)
 		(*new_y)--;
-	else if (keycode == D || keycode == RIGHT) // right
+	else if (keycode == D || keycode == RIGHT)
 		(*new_x)++;
-	else if (keycode == S || keycode == DOWN) // down
+	else if (keycode == S || keycode == DOWN)
 		(*new_y)++;
 }
 
@@ -73,6 +73,7 @@ int	main(int argc, char *argv[])
 		ft_putstr_fd("Usage: <map_file.ber>\n", 2);
 		exit(EXIT_FAILURE);
 	}
+	init_structs(&game);
 	init_game(&game, argv[1]);
 	draw_map(&game);
 	mlx_key_hook(game.win, key_press, &game);
