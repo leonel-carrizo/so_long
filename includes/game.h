@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:40:05 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/19 11:05:54 by lcarrizo         ###   ########.fr       */
+/*   Updated: 2024/06/19 13:57:22 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_game
 
 void	init_images(t_game *game);
 void	init_game(t_game *game, char *map_path);
-void	free_game(t_game *game);
+int	free_game(t_game *game);
 void	init_structs(t_game *game);
 
 #endif

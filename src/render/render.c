@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:45:07 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/18 11:40:16 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/19 12:13:23 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	update_door_state(t_game *game)
 
 	i = 0;
 	collected_all = 1;
-	while (i < game->map.num_collec)
+	while (i < game->map.n_collect)
 	{
-		if (!game->map.collec[i].collected)
+		if (!game->map.collect[i].collected)
 		{
 			collected_all = 0;
 			break ;
@@ -30,14 +30,29 @@ void	update_door_state(t_game *game)
 		i++;
 	}
 	if (collected_all)
-		game->map.exit_door.is_open = 1;
-}	
+		game->map.exit.is_open = 1;
+}
 
 /* Draws an image at the specified position */
 void	draw_tile(t_game *game, void *img, int x, int y)
 {
 	mlx_put_image_to_window(
 		game->mlx, game->win, img, x * TILE_SIZE, y * TILE_SIZE);
+}
+
+/* Draws the current tile based on its type */
+void	draw_current_tile(t_game *game, int x, int y)
+{
+	if (game->map.tiles[y][x] == '1')
+		draw_tile(game, game->img_wall, x, y);
+	else if (game->map.tiles[y][x] == 'P')
+		draw_tile(game, game->img_player, x, y);
+	else if (game->map.tiles[y][x] == 'C')
+		draw_tile(game, game->img_collect, x, y);
+	else if (game->map.tiles[y][x] == 'E')
+		draw_tile(game, game->img_exit, x, y);
+	else
+		draw_tile(game, game->img_floor, x, y);
 }
 
 /* Draw the entire map */
@@ -57,28 +72,4 @@ void	draw_map(t_game *game)
 		}
 		y++;
 	}
-}
-
-/* Draws the current tile based on its type */
-void	draw_current_tile(t_game *game, int x, int y)
-{
-	if (game->map.tiles[y][x] == '1')
-		draw_tile(game, game->img_wall, x, y);
-	else if (game->map.tiles[y][x] == 'P')
-	{
-		draw_tile(game, game->img_floor, x, y);
-		draw_tile(game, game->img_player, x, y);
-	}
-	else if (game->map.tiles[y][x] == 'C')
-	{
-		draw_tile(game, game->img_floor, x, y);
-		draw_tile(game, game->img_collect, x, y);
-	}
-	else if (game->map.tiles[y][x] == 'E')
-	{
-		draw_tile(game, game->img_floor, x, y);
-		draw_tile(game, game->img_exit, x, y);
-	}
-	else
-		draw_tile(game, game->img_floor, x, y);
 }

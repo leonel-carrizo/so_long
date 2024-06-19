@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizu@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 20:17:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/19 11:23:55 by lcarrizo         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:35:53 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	is_valid_move(t_game *game, int new_x, int new_y)
 int	main(int argc, char *argv[])
 {
 	t_game	game;
+	int	test = 0;
 
 	if (argc != 2)
 	{
@@ -76,7 +77,10 @@ int	main(int argc, char *argv[])
 	init_structs(&game);
 	init_game(&game, argv[1]);
 	draw_map(&game);
-	mlx_key_hook(game.win, key_press, &game);
+	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
+	test = mlx_hook(game.win, 17, 1L << 0, free_game, &game);
+	if (test == 1)
+		exit(0);
 	mlx_loop(game.mlx);
 	return (0);
 }

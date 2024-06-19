@@ -6,11 +6,26 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:42:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/17 15:05:00 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/19 12:10:52 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/so_long.h"
+
+/* Free the memory allocated for the map */
+void	free_map(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (i < map->height)
+	{
+		free(map->tiles[i]);
+		i++;
+	}
+	free(map->tiles);
+	free(map->collect);
+}
 
 /* Analyzes the entities on the map (player, collectibles, exit door) */
 void	parse_map_entities(t_map *map)
@@ -25,7 +40,6 @@ void	init_entities_positions(t_map *map)
 	int	i;
 	int	j;
 
-	map->n_collect = 0;
 	i = -1;
 	while (++i < map->height)
 	{
@@ -77,17 +91,4 @@ void	init_collectibles(t_map *map)
 	}
 }
 
-/* Free the memory allocated for the map */
-void	free_map(t_map *map)
-{
-	int	i;
 
-	i = 0;
-	while (i < map->height)
-	{
-		free(map->tiles[i]);
-		i++;
-	}
-	free(map->tiles);
-	free(map->collect);
-}
