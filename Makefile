@@ -6,7 +6,7 @@
 #    By: lcarrizo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 17:53:32 by lcarrizo          #+#    #+#              #
-#    Updated: 2024/06/08 11:51:14 by lcarrizo         ###   ########.fr        #
+#    Updated: 2024/06/19 21:43:05 by lcarrizo         ###    ###london.com     #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,13 +66,12 @@ $(MLX):			$(MLX_ZIP)
 
 $(OBJ_DIR)%.o:		$(SRC_DIR)%.c
 			@mkdir -p $(dir $@)
-			#@mkdir -p $(OBJ_DIR)
-			@echo "Object Directory Created!"
+			#@echo "Object Directory Created!"
 			$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR)utils/%.o:	$(UTILS_DIR)%.c
 			@mkdir -p $(OBJ_DIR)/utils
-			@echo "Object Utils Directory Created"
+			#@echo "Object Utils Directory Created"
 			$(CC) $(CFLAGS) -c $< -o $@
 
 # create executables which can be debugged with gdb.
