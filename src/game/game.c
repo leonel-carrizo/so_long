@@ -6,34 +6,45 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:42:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/19 14:35:34 by lcarrizo         ###   ########.fr       */
+/*   Updated: 2024/06/21 13:28:42 by lcarrizo         ###    ###london.com    */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/so_long.h"
 
-/* Release the resources assigned to the game */
-int	free_game(t_game *game)
+/* Updates the door status if all collectibles have been collected */
+void	update_door_state(t_game *game)
 {
-	int	i;
+	int	width;
+	int	height;
 
-	i = 0;
-	while (i < game->map.height)
-	{
-		free(game->map.tiles[i]);
-		i++;
+	if (game->map.n_collect == 0)
+	{	
+		game->map.exit.is_open = 1;
+		mlx_destroy_image(game->mlx, game->img_exit);
+		game->img_exit = mlx_xpm_file_to_image(
+			game->mlx, "assets/images/door_opened.xpm", &width, &height);
 	}
-	free(game->map.tiles);
-	free(game->map.collect);
-	mlx_destroy_image(game->mlx, game->img_wall);
-	mlx_destroy_image(game->mlx, game->img_player);
-	mlx_destroy_image(game->mlx, game->img_collect);
-	mlx_destroy_image(game->mlx, game->img_exit);
-	mlx_destroy_image(game->mlx, game->img_floor);
-	mlx_destroy_window(game->mlx, game->win);
-	mlx_destroy_display(game->mlx);
-	free(game->mlx);
-	exit(0);
+}
+
+/* update image to be rendered */
+void	update_tiles(t_game *game)
+{
+	int	width;
+	int	height;
+
+	update_door_state(game);
+	if (game->map.player_pos.x == game->map.exit.pos.x
+		&& game->map.player_pos.y == game->map.exit.pos.y)
+	{
+		mlx_destroy_image(game->mlx, game->img_exit);
+		game->img_exit = mlx_xpm_file_to_image(
+			game->mlx, "assets/images/player_door.xpm", &width, &height);
+		draw_map(game);
+		free_game(game);
+		exit(0);
+	}
+	draw_map(game);
 }
 
 /* Initialize game images */
@@ -47,7 +58,7 @@ void	init_images(t_game *game)
 	game->img_floor = mlx_xpm_file_to_image(
 			game->mlx, "assets/images/floor1.xpm", &width, &height);
 	game->img_player = mlx_xpm_file_to_image(
-			game->mlx, "assets/images/player_front.xpm", &width, &height);
+			game->mlx, "assets/images/player_start.xpm", &width, &height);
 	game->img_collect = mlx_xpm_file_to_image(
 			game->mlx, "assets/images/coin_1.xpm", &width, &height);
 	game->img_exit = mlx_xpm_file_to_image(

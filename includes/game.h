@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:40:05 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/19 13:57:22 by lcarrizo         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:17:02 by lcarrizo         ###    ###london.com    */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ typedef struct s_game
 	t_map			map;
 }	t_game;
 
+int	free_game(t_game *game);
 void	init_images(t_game *game);
 void	init_game(t_game *game, char *map_path);
-int	free_game(t_game *game);
 void	init_structs(t_game *game);
+void	update_tiles(t_game *game);
 
 #endif
