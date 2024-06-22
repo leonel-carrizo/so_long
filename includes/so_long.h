@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:05:04 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/21 10:42:30 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/22 11:57:29 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@
 int		key_press(int keycode, t_game *game);
 
 /* Checks if the player's move is valid */
-int		is_valid_move(t_game *game, int new_x, int new_y);
+int		is_valid_move(t_map map, int new_x, int new_y, int keycode);
 
 /* Updates the player's position based on the key pressed */
-void	update_player_position(t_game *game, int keycode, int *x, int *y);
+void	update_player_position(t_game *game, int keycode);
 
 void    print_moves(t_game *game, int x, int y);
 

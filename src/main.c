@@ -6,43 +6,51 @@
 /*   By: lcarrizo <lcarrizu@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 20:17:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/21 23:15:10 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/22 13:01:02 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
 /* Checks if the player's move is valid */
-int	is_valid_move(t_game *game, int new_x, int new_y)
+int	is_valid_move(t_map map, int new_x, int new_y, int keycode)
 {
-	if (new_x < 0 ||  new_y < 0 || new_x >= game->map.width
-		|| new_y >= game->map.height)
-		return (0);
-	if (game->map.tiles[new_y][new_x] == '1')
-		return (0);
-	if (game->map.tiles[new_y][new_x] == 'E' && !game->map.exit.is_open)
-		return (0);
-	return (1);
+	if (keycode == A || keycode == W || keycode == D || keycode == S
+		|| keycode == LEFT || keycode == RIGHT
+		|| keycode == UP || keycode == DOWN)
+	{
+		if (keycode == A || keycode == LEFT)
+			new_x--;
+		else if (keycode == W || keycode == UP)
+			new_y--;
+		else if (keycode == D || keycode == RIGHT)
+			new_x++;
+		else if (keycode == S || keycode == DOWN)
+			new_y++;
+		if (new_x < 0 ||  new_y < 0 || new_x >= map.width || new_y >= map.height)
+			return (0);
+		if (map.tiles[new_y][new_x] == '1')
+			return (0);
+		if (map.tiles[new_y][new_x] == 'E' && !map.exit.is_open)
+			return (0);
+		return (1);
+	}
+	return (0);
 }
 
 /* Updates the player's position based on the key pressed */
-void	update_player_position(t_game *game, int keycode, int *x, int *y)
+void	update_player_position(t_game *game, int keycode)
 {
-	if (is_valid_move(game, (*x), (*y)))
-	{
-		if (keycode == A || keycode == LEFT)
-			(*x)--;
-		else if (keycode == W || keycode == UP)
-			(*y)--;
-		else if (keycode == D || keycode == RIGHT)
-			(*x)++;
-		else if (keycode == S || keycode == DOWN)
-			(*y)++;
-		ft_printf("x: %d, y: %d\n", (*x), (*y));
-		// game->player.position.x = (*x);
-		// game->player.position.y = (*y);
-		//print_moves(game, x, y);
-	}
+	if (keycode == A || keycode == LEFT)
+		game->player.position.x--;
+	else if (keycode == W || keycode == UP)
+		game->player.position.y--;
+	else if (keycode == D || keycode == RIGHT)
+		game->player.position.x++;
+	else if (keycode == S || keycode == DOWN)
+		game->player.position.y++;
+	game->player.n_moves++;
+	ft_printf(" Nro. %d\n", game->player.n_moves);
 }
 
 /* Handles keyboard events */
@@ -55,14 +63,10 @@ int	key_press(int keycode, t_game *game)
 		exit_game(game);
 	new_x = game->player.position.x;
 	new_y = game->player.position.y;
-	if (keycode == A || keycode == W || keycode == D || keycode == S
-		|| keycode == LEFT || keycode == RIGHT
-		|| keycode == UP || keycode == DOWN)
+	if (is_valid_move(game->map, new_x, new_y, keycode))
 	{
-		update_player_position(game, keycode, &new_x, &new_y);
+		update_player_position(game, keycode);
 		update_map(game, new_x , new_y);
-		update_tiles(game);
-		draw_map(game);
 	}
 	return (0);
 }
@@ -77,6 +81,7 @@ int	main(int argc, char *argv[])
 		ft_putstr_fd("Usage: <map_file.ber>\n", 2);
 		exit(EXIT_FAILURE);
 	}
+	// TODO: check valid map
 	init_structs(&game);
 	init_game(&game, argv[1]);
 	draw_map(&game);

@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:42:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/21 13:28:42 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/22 12:46:27 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void	update_door_state(t_game *game)
 /* update changes in the map after events */
 void	update_map(t_game *game, int x, int y)
 {
-	if (game->map.tiles[y][x] == 'C')
+	if (game->map.tiles[game->player.position.y][game->player.position.x] == 'C')
 		game->map.n_collect--;
-	game->map.tiles[game->player.position.y][game->player.position.x] = '0';
-	game->player.position.x = x;
-	game->player.position.y = y;
-	game->map.tiles[y][x] = 'P';
+	game->map.tiles[y][x] = '0';
+	game->map.tiles[game->player.position.y][game->player.position.x] = 'P';
+	update_tiles(game);
+	draw_map(game);
 }
 
 /* update image to be rendered */
@@ -54,7 +54,6 @@ void	update_tiles(t_game *game)
 		draw_map(game);
 		exit_game(game);
 	}
-	draw_map(game);
 }
 
 /* Initialize game images */
