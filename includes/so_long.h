@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:05:04 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/22 11:57:29 by lcarrizo         ###   ########.fr       */
+/*   Updated: 2024/06/22 13:43:52 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 # define D 0x64
 # define RIGHT 65363
 # define RESTART 114
+
+int		is_ber_extention(const char *path);
 
 /* Handles keyboard events */
 int		key_press(int keycode, t_game *game);

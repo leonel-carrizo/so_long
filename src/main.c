@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizu@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 20:17:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/22 13:01:02 by lcarrizo         ###   ########.fr       */
+/*   Updated: 2024/06/22 14:05:18 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	main(int argc, char *argv[])
 	t_game	game;
 	int	test = 0;
 
-	if (argc != 2)
+	if (!is_ber_extention(argv[1]) || argc != 2)
 	{
 		ft_putstr_fd("Usage: <map_file.ber>\n", 2);
 		exit(EXIT_FAILURE);
