@@ -13,7 +13,7 @@
 #ifndef RENDER_H
 # define RENDER_H
 
-# include "game.h"
+# include "types.h"
 
 void	draw_tile(t_game *game, void *img, int x, int y);
 void	draw_map(t_game *game);

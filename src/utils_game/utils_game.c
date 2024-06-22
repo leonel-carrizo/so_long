@@ -13,7 +13,7 @@
 #include "../../includes/so_long.h"
 
 /* Release the resources assigned to the game */
-int	free_game(t_game *game)
+int	exit_game(t_game *game)
 {
 	int	i;
 
@@ -33,5 +33,17 @@ int	free_game(t_game *game)
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
-	exit(0);
+	exit(EXIT_SUCCESS);
+}
+
+/* show the number of movements in the terminal */
+void	print_moves(t_game *game, int x, int y)
+{
+	if (game->player.position.x != x && game->player.position.y != y)
+	{
+		game->player.n_moves++;
+		ft_printf("Moves Nro. %d\n", game->player.n_moves);
+		return ;
+	}
+	ft_printf("no se movio \n");
 }

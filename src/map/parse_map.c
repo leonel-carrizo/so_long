@@ -28,36 +28,36 @@ void	free_map(t_map *map)
 }
 
 /* Analyzes the entities on the map (player, collectibles, exit door) */
-void	parse_map_entities(t_map *map)
+void	parse_map_entities(t_game *game)
 {
-	init_entities_positions(map);
-	init_collectibles(map);
+	init_entities_positions(game);
+	init_collectibles(&game->map);
 }
 
 /* Initializes the positions of the entities on the map */
-void	init_entities_positions(t_map *map)
+void	init_entities_positions(t_game *game)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	while (++i < map->height)
+	while (++i < game->map.height)
 	{
 		j = 0;
-		while (j < map->width)
+		while (j < game->map.width)
 		{
-			if (map->tiles[i][j] == 'P')
+			if (game->map.tiles[i][j] == 'P')
 			{
-				map->player_pos.x = j;
-				map->player_pos.y = i;
+				game->player.position.x = j;
+				game->player.position.y = i;
 			}
-			else if (map->tiles[i][j] == 'E')
+			else if (game->map.tiles[i][j] == 'E')
 			{
-				map->exit.pos.x = j;
-				map->exit.pos.y = i;
+				game->map.exit.pos.x = j;
+				game->map.exit.pos.y = i;
 			}
-			else if (map->tiles[i][j] == 'C')
-				map->n_collect++;
+			else if (game->map.tiles[i][j] == 'C')
+				game->map.n_collect++;
 			j++;
 		}
 	}

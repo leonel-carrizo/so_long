@@ -13,12 +13,12 @@
 #include "../../includes/so_long.h"
 
 /* Load the map from the specified file */
-void	load_map(t_map *map, char *file_path)
+void	load_map(t_game *game, char *file_path)
 {
-	count_map_dimensions(map, file_path);
-	allocate_map(map, map->width, map->height);
-	fill_map(map, file_path);
-	parse_map_entities(map);
+	count_map_dimensions(&game->map, file_path);
+	allocate_map(&game->map, game->map.width, game->map.height);
+	fill_map(&game->map, file_path);
+	parse_map_entities(game);
 }
 
 /* Count map dimensions from file */

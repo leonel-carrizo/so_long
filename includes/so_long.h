@@ -20,7 +20,10 @@
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h>
-# include "render.h"
+#include "render.h"
+# include "types.h"
+# include "map.h"
+# include "game.h"
 
 # ifndef WIN_WIDTH
 #  define WIN_WIDTH 1080
@@ -49,6 +52,8 @@ int		key_press(int keycode, t_game *game);
 int		is_valid_move(t_game *game, int new_x, int new_y);
 
 /* Updates the player's position based on the key pressed */
-void	update_player_position(int keycode, int *new_x, int *new_y);
+void	update_player_position(t_game *game, int keycode, int *x, int *y);
+
+void    print_moves(t_game *game, int x, int y);
 
 #endif

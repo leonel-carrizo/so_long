@@ -19,12 +19,23 @@ void	update_door_state(t_game *game)
 	int	height;
 
 	if (game->map.n_collect == 0)
-	{	
+	{
 		game->map.exit.is_open = 1;
 		mlx_destroy_image(game->mlx, game->img_exit);
 		game->img_exit = mlx_xpm_file_to_image(
 			game->mlx, "assets/images/door_opened.xpm", &width, &height);
 	}
+}
+
+/* update changes in the map after events */
+void	update_map(t_game *game, int x, int y)
+{
+	if (game->map.tiles[y][x] == 'C')
+		game->map.n_collect--;
+	game->map.tiles[game->player.position.y][game->player.position.x] = '0';
+	game->player.position.x = x;
+	game->player.position.y = y;
+	game->map.tiles[y][x] = 'P';
 }
 
 /* update image to be rendered */
@@ -34,15 +45,14 @@ void	update_tiles(t_game *game)
 	int	height;
 
 	update_door_state(game);
-	if (game->map.player_pos.x == game->map.exit.pos.x
-		&& game->map.player_pos.y == game->map.exit.pos.y)
+	if (game->player.position.x == game->map.exit.pos.x
+		&& game->player.position.y == game->map.exit.pos.y)
 	{
 		mlx_destroy_image(game->mlx, game->img_exit);
 		game->img_exit = mlx_xpm_file_to_image(
 			game->mlx, "assets/images/player_door.xpm", &width, &height);
 		draw_map(game);
-		free_game(game);
-		exit(0);
+		exit_game(game);
 	}
 	draw_map(game);
 }
@@ -70,18 +80,12 @@ void	init_game(t_game *game, char *map_path)
 {
 	game->mlx = mlx_init();
 	if (!game->mlx)
-	{
-		free_game(game);
-		exit(EXIT_FAILURE);
-	}
-	load_map(&game->map, map_path);
+		exit_game(game);
+	load_map(game, map_path);
 	init_images(game);
 	game->win = mlx_new_window(
 			game->mlx, game->map.width * TILE_SIZE,
 			game->map.height * TILE_SIZE, "so_long game");
 	if (!game->win)
-	{
-		free_game(game);
-		exit(EXIT_FAILURE);
-	}
+		exit_game(game);
 }

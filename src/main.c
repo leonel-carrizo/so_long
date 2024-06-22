@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizu@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 20:17:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/21 12:45:19 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/21 23:15:10 by lcarrizo         ###    ###london.com    */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /* Checks if the player's move is valid */
 int	is_valid_move(t_game *game, int new_x, int new_y)
 {
-	if (new_x < 0 || new_x >= game->map.width || new_y < 0
+	if (new_x < 0 ||  new_y < 0 || new_x >= game->map.width
 		|| new_y >= game->map.height)
 		return (0);
 	if (game->map.tiles[new_y][new_x] == '1')
@@ -25,6 +25,26 @@ int	is_valid_move(t_game *game, int new_x, int new_y)
 	return (1);
 }
 
+/* Updates the player's position based on the key pressed */
+void	update_player_position(t_game *game, int keycode, int *x, int *y)
+{
+	if (is_valid_move(game, (*x), (*y)))
+	{
+		if (keycode == A || keycode == LEFT)
+			(*x)--;
+		else if (keycode == W || keycode == UP)
+			(*y)--;
+		else if (keycode == D || keycode == RIGHT)
+			(*x)++;
+		else if (keycode == S || keycode == DOWN)
+			(*y)++;
+		ft_printf("x: %d, y: %d\n", (*x), (*y));
+		// game->player.position.x = (*x);
+		// game->player.position.y = (*y);
+		//print_moves(game, x, y);
+	}
+}
+
 /* Handles keyboard events */
 int	key_press(int keycode, t_game *game)
 {
@@ -32,38 +52,19 @@ int	key_press(int keycode, t_game *game)
 	int	new_y;
 
 	if (keycode == ESC)
+		exit_game(game);
+	new_x = game->player.position.x;
+	new_y = game->player.position.y;
+	if (keycode == A || keycode == W || keycode == D || keycode == S
+		|| keycode == LEFT || keycode == RIGHT
+		|| keycode == UP || keycode == DOWN)
 	{
-		free_game(game);
-		exit(EXIT_SUCCESS);
+		update_player_position(game, keycode, &new_x, &new_y);
+		update_map(game, new_x , new_y);
+		update_tiles(game);
+		draw_map(game);
 	}
-	new_x = game->map.player_pos.x;
-	new_y = game->map.player_pos.y;
-	update_player_position(keycode, &new_x, &new_y);
-	if (is_valid_move(game, new_x, new_y))
-	{
-		if (game->map.tiles[new_y][new_x] == 'C')
-			game->map.n_collect--;
-		game->map.tiles[game->map.player_pos.y][game->map.player_pos.x] = '0';
-		game->map.player_pos.x = new_x;
-		game->map.player_pos.y = new_y;
-		game->map.tiles[new_y][new_x] = 'P';
-	}
-	update_tiles(game);
-	draw_map(game);
 	return (0);
-}
-
-/* Updates the player's position based on the key pressed */
-void	update_player_position(int keycode, int *new_x, int *new_y)
-{
-	if (keycode == A || keycode == LEFT)
-		(*new_x)--;
-	else if (keycode == W || keycode == UP)
-		(*new_y)--;
-	else if (keycode == D || keycode == RIGHT)
-		(*new_x)++;
-	else if (keycode == S || keycode == DOWN)
-		(*new_y)++;
 }
 
 int	main(int argc, char *argv[])
@@ -80,7 +81,7 @@ int	main(int argc, char *argv[])
 	init_game(&game, argv[1]);
 	draw_map(&game);
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
-	test = mlx_hook(game.win, 17, 1L << 0, free_game, &game);
+	test = mlx_hook(game.win, 17, 1L << 0, exit_game, &game);
 	if (test == 1)
 		exit(0);
 	mlx_loop(game.mlx);
