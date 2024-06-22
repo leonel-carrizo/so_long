@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:42:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/22 12:46:27 by lcarrizo         ###   ########.fr       */
+/*   Updated: 2024/06/22 15:55:23 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,18 @@ void	update_door_state(t_game *game)
 		game->map.exit.is_open = 1;
 		mlx_destroy_image(game->mlx, game->img_exit);
 		game->img_exit = mlx_xpm_file_to_image(
-			game->mlx, "assets/images/door_opened.xpm", &width, &height);
+				game->mlx,
+				"assets/images/door_opened.xpm",
+				&width, &height);
 	}
 }
 
 /* update changes in the map after events */
 void	update_map(t_game *game, int x, int y)
 {
-	if (game->map.tiles[game->player.position.y][game->player.position.x] == 'C')
+	if (
+		game->map.tiles[game->player.position.y][game->player.position.x] == 'C'
+		)
 		game->map.n_collect--;
 	game->map.tiles[y][x] = '0';
 	game->map.tiles[game->player.position.y][game->player.position.x] = 'P';
@@ -50,7 +54,9 @@ void	update_tiles(t_game *game)
 	{
 		mlx_destroy_image(game->mlx, game->img_exit);
 		game->img_exit = mlx_xpm_file_to_image(
-			game->mlx, "assets/images/player_door.xpm", &width, &height);
+				game->mlx,
+				"assets/images/player_door.xpm",
+				&width, &height);
 		draw_map(game);
 		exit_game(game);
 	}

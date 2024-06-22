@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:42:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/19 12:10:52 by lcarrizo         ###   ########.fr       */
+/*   Updated: 2024/06/22 17:34:11 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,6 @@ void	free_map(t_map *map)
 	}
 	free(map->tiles);
 	free(map->collect);
-}
-
-/* Analyzes the entities on the map (player, collectibles, exit door) */
-void	parse_map_entities(t_game *game)
-{
-	init_entities_positions(game);
-	init_collectibles(&game->map);
 }
 
 /* Initializes the positions of the entities on the map */
@@ -91,4 +84,9 @@ void	init_collectibles(t_map *map)
 	}
 }
 
-
+/* Analyzes the entities on the map (player, collectibles, exit door) */
+void	parse_map_entities(t_game *game)
+{
+	init_entities_positions(game);
+	init_collectibles(&game->map);
+}

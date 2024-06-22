@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:05:04 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/22 13:43:52 by lcarrizo         ###   ########.fr       */
+/*   Updated: 2024/06/22 17:35:44 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h>
-#include "render.h"
+# include "render.h"
 # include "types.h"
 # include "map.h"
 # include "game.h"
@@ -56,6 +56,6 @@ int		is_valid_move(t_map map, int new_x, int new_y, int keycode);
 /* Updates the player's position based on the key pressed */
 void	update_player_position(t_game *game, int keycode);
 
-void    print_moves(t_game *game, int x, int y);
+void	print_moves(t_game *game, int x, int y);
 
 #endif

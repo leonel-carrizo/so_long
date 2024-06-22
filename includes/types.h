@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:53:03 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/21 14:53:10 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/22 17:36:05 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	int		n_moves;
+	int			n_moves;
 	t_position	position;
 }	t_player;
 

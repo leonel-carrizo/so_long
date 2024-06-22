@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizu@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 20:17:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/22 14:05:18 by lcarrizo         ###   ########.fr       */
+/*   Updated: 2024/06/22 17:14:10 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_valid_move(t_map map, int new_x, int new_y, int keycode)
 			new_x++;
 		else if (keycode == S || keycode == DOWN)
 			new_y++;
-		if (new_x < 0 ||  new_y < 0 || new_x >= map.width || new_y >= map.height)
+		if (new_x < 0 || new_y < 0 || new_x >= map.width || new_y >= map.height)
 			return (0);
 		if (map.tiles[new_y][new_x] == '1')
 			return (0);
@@ -50,7 +50,7 @@ void	update_player_position(t_game *game, int keycode)
 	else if (keycode == S || keycode == DOWN)
 		game->player.position.y++;
 	game->player.n_moves++;
-	ft_printf(" Nro. %d\n", game->player.n_moves);
+	ft_printf("No. movements: %d\n", game->player.n_moves);
 }
 
 /* Handles keyboard events */
@@ -66,7 +66,7 @@ int	key_press(int keycode, t_game *game)
 	if (is_valid_move(game->map, new_x, new_y, keycode))
 	{
 		update_player_position(game, keycode);
-		update_map(game, new_x , new_y);
+		update_map(game, new_x, new_y);
 	}
 	return (0);
 }
@@ -74,21 +74,17 @@ int	key_press(int keycode, t_game *game)
 int	main(int argc, char *argv[])
 {
 	t_game	game;
-	int	test = 0;
 
 	if (!is_ber_extention(argv[1]) || argc != 2)
 	{
 		ft_putstr_fd("Usage: <map_file.ber>\n", 2);
 		exit(EXIT_FAILURE);
 	}
-	// TODO: check valid map
 	init_structs(&game);
 	init_game(&game, argv[1]);
 	draw_map(&game);
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
-	test = mlx_hook(game.win, 17, 1L << 0, exit_game, &game);
-	if (test == 1)
-		exit(0);
+	mlx_hook(game.win, 17, 1L << 0, exit_game, &game);
 	mlx_loop(game.mlx);
 	return (0);
 }
