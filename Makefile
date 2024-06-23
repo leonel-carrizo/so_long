@@ -57,12 +57,12 @@ $(MLX_ZIP):
 				echo "Downloading Minilibx..."; \
 				wget -q -O $(MLX_ZIP) $(MLX_URL); \
 			else echo "Minilibx Downloaded."; fi
-				
+
 $(MLX):			$(MLX_ZIP)
 			@if [ ! -e $(MLX_DIR) ]; then \
 				unzip -q $(MLX_ZIP); \
-				mv minilibx-linux-master $(MLX_DIR); fi
-			@make -s -C $(MLX_DIR)
+				mv minilibx-linux-master $(MLX_DIR); \
+				make -s -C $(MLX_DIR); fi
 
 $(OBJ_DIR)%.o:		$(SRC_DIR)%.c
 			@mkdir -p $(dir $@)
@@ -82,12 +82,12 @@ debug:			$(LIBFT) $(LIBMLX)
 clean:
 			$(RM) $(OBJ_DIR)
 			@make -s -C $(LIBFT_DIR) clean
-			-@make -s -C $(MLX_DIR) clean
 			@echo "** clean so_long done!**"
-			
+
 fclean:			clean
 			$(RM) $(NAME)
 			@make -s -C $(LIBFT_DIR) fclean
+			-@make -s -C $(MLX_DIR) clean
 			-@$(RM) $(MLX_DIR)
 			-@$(RM) $(MLX_ZIP)
 			@echo "** full clean so_long done!**"
