@@ -45,10 +45,10 @@ void	check_map_char(t_game *game, char *line, int fd)
 		if (line[i] != '1' && line[i] != '0' && line[i] != 'C'
 			&& line[i] != 'P' && line[i] != 'E' && line[i] != '\n')
 		{
-			close(fd);
 			free(line);
+			close(fd);
 			line = get_next_line(fd);
-			ft_putstr_fd("Error:\nInvalid tile found in the map given.\n",
+			ft_putstr_fd("Error:\nInvalid char found in the map given.\n",
 				STDERR_FILENO);
 			exit_game(game);
 		}
@@ -67,8 +67,8 @@ void	is_map_square(t_game *game, char *line, int fd)
 	nlen = ft_strlen((const char *)line) - 1;
 	if (game->map.width != nlen)
 	{
-		close(fd);
 		free(line);
+		close(fd);
 		line = get_next_line(fd);
 		ft_putstr_fd("Error:\nMap with invalid proportions.\n",
 			STDERR_FILENO);
