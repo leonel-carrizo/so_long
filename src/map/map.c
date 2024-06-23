@@ -27,7 +27,7 @@ void	allocate_map(t_map *map, int width, int height)
 }
 
 /* Fill the map with the data from the file */
-void	fill_map(t_map *map, char *file_path)
+void	fill_map(t_game *game, char *file_path)
 {
 	int		fd;
 	int		i;
@@ -43,7 +43,8 @@ void	fill_map(t_map *map, char *file_path)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		ft_strcpy(map->tiles[i], line);
+		check_map_char(game, line, fd);
+		ft_strcpy(game->map.tiles[i], line);
 		free(line);
 		i++;
 		line = get_next_line(fd);
@@ -52,7 +53,7 @@ void	fill_map(t_map *map, char *file_path)
 }
 
 /* Count map dimensions from file */
-void	count_map_dimensions(t_map *map, char *file_path)
+void	count_map_dimensions(t_game *game, char *file_path)
 {
 	int		fd;
 	char	*line;
@@ -63,14 +64,15 @@ void	count_map_dimensions(t_map *map, char *file_path)
 		perror("Error opening map file");
 		exit(EXIT_FAILURE);
 	}
-	map->width = 0;
-	map->height = 0;
+	game->map.width = 0;
+	game->map.height = 0;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		if (map->width == 0)
-			map->width = ft_strlen(line) - 1;
-		map->height++;
+		if (game->map.width == 0)
+			game->map.width = ft_strlen(line) - 1;
+		is_map_square(game, line, fd);
+		game->map.height++;
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -82,17 +84,14 @@ void	load_map(t_game *game, char *file_path)
 {
 	int	valid_map;
 
-	count_map_dimensions(&game->map, file_path);
+	count_map_dimensions(game, file_path);
 	allocate_map(&game->map, game->map.width, game->map.height);
-	fill_map(&game->map, file_path);
+	fill_map(game, file_path);
 	parse_map_entities(game);
 	valid_map = check_valid_map(game);
 	if (!valid_map)
 	{
 		ft_printf("Error:\nThe map is not valid, try different a file.\n");
-		free_map(&game->map);
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-		exit(1);
+		exit_game(game);
 	}
 }

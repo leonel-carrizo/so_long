@@ -56,6 +56,4 @@ int		is_valid_move(t_map map, int new_x, int new_y, int keycode);
 /* Updates the player's position based on the key pressed */
 void	update_player_position(t_game *game, int keycode);
 
-void	print_moves(t_game *game, int x, int y);
-
 #endif

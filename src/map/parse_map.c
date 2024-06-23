@@ -12,21 +12,6 @@
 
 #include "../../includes/so_long.h"
 
-/* Free the memory allocated for the map */
-void	free_map(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (i < map->height)
-	{
-		free(map->tiles[i]);
-		i++;
-	}
-	free(map->tiles);
-	free(map->collect);
-}
-
 /* Initializes the positions of the entities on the map */
 void	init_entities_positions(t_game *game)
 {

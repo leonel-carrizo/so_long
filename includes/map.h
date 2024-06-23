@@ -19,10 +19,13 @@
 #  define TILE_SIZE 32
 # endif
 
+int		check_valid_map(t_game *game);
+void	check_map_char(t_game *game, char *line, int fg);
+void	is_map_square(t_game *game, char *line, int fd);
 void	load_map(t_game *game, char *file_path);
 void	allocate_map(t_map *map, int width, int height);
-void	count_map_dimensions(t_map *map, char *file_path);
-void	fill_map(t_map *map, char *file_path);
+void	count_map_dimensions(t_game *game, char *file_path);
+void	fill_map(t_game *game, char *file_path);
 void	parse_map_entities(t_game *game);
 void	init_entities_positions(t_game *game);
 void	init_collectibles(t_map *map);
