@@ -20,8 +20,7 @@
 # endif
 
 int		check_valid_map(t_game *game);
-void	check_map_char(t_game *game, char *line, int fg);
-void	is_map_square(t_game *game, char *line, int fd);
+void	pre_checks(t_game *game, char *line, int fd);
 void	load_map(t_game *game, char *file_path);
 void	allocate_map(t_map *map, int width, int height);
 void	count_map_dimensions(t_game *game, char *file_path);

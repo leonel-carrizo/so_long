@@ -43,7 +43,6 @@ void	fill_map(t_game *game, char *file_path)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		check_map_char(game, line, fd);
 		ft_strcpy(game->map.tiles[i], line);
 		free(line);
 		i++;
@@ -71,8 +70,8 @@ void	count_map_dimensions(t_game *game, char *file_path)
 	{
 		if (game->map.width == 0)
 			game->map.width = ft_strlen(line) - 1;
-		is_map_square(game, line, fd);
 		game->map.height++;
+		pre_checks(game, line, fd);
 		free(line);
 		line = get_next_line(fd);
 	}

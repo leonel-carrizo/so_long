@@ -31,41 +31,22 @@ void	free_map(t_map *map)
 	}
 }
 
-/*	preliminar checks, if while filling map wrong tile is found, game exit.
-	By closing the file and calling get_netx_line(),
-	it ensures free of memory allocated in its buffer.
-*/
-void	check_map_char(t_game *game, char *line, int fd)
-{
-	int	i;
-
-	i = ft_strlen((const char *)line) - 1;
-	while (i >= 0)
-	{
-		if (line[i] != '1' && line[i] != '0' && line[i] != 'C'
-			&& line[i] != 'P' && line[i] != 'E' && line[i] != '\n')
-		{
-			free(line);
-			close(fd);
-			line = get_next_line(fd);
-			ft_putstr_fd("Error:\nInvalid char found in the map given.\n",
-				STDERR_FILENO);
-			exit_game(game);
-		}
-		i--;
-	}
-}
-
 /*	preliminar checks, if map is not square, game exit.
 	By closing the file and calling get_netx_line(),
 	it ensures free of memory allocated in its buffer.
 */
-void	is_map_square(t_game *game, char *line, int fd)
+void	pre_checks(t_game *game, char *line, int fd)
 {
-	int	nlen;
+	int	len;
+	int	char_ok;
 
-	nlen = ft_strlen((const char *)line) - 1;
-	if (game->map.width != nlen)
+	len = -1;
+	char_ok = 1;
+	while (line[++len])
+		if (line[len] != '1' && line[len] != '0' && line[len] != 'C'
+			&& line[len] != 'P' && line[len] != 'E' && line[len] != '\n')
+			char_ok = 1;
+	if (game->map.width != len - 1 || !char_ok)
 	{
 		free(line);
 		close(fd);
