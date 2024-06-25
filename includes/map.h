@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 23:30:42 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/10 14:23:28 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/25 10:19:46 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # endif
 
 int		check_valid_map(t_game *game);
-void	pre_checks(t_game *game, char *line, int fd);
+int	pre_checks(t_game *game, char *line, int fd);
 void	load_map(t_game *game, char *file_path);
 void	allocate_map(t_map *map, int width, int height);
 void	count_map_dimensions(t_game *game, char *file_path);

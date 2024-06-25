@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 14:19:49 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/23 14:19:51 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/25 14:50:38 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,30 @@ void	free_map(t_map *map)
 	By closing the file and calling get_netx_line(),
 	it ensures free of memory allocated in its buffer.
 */
-void	pre_checks(t_game *game, char *line, int fd)
+int	pre_checks(t_game *game, char *line, int fd)
 {
 	int	len;
+	int 	i;
 	int	char_ok;
+	static char	*temp ;
 
-	len = -1;
+	len = game->map.width;
 	char_ok = 1;
-	while (line[++len])
+	i = 1;
+	while (line && line[--len])
 	{
+		if ((line[len] == '0' || line[len] == 'C' || line[len] == 'P'|| line[len] == 'E')
+			&& (game->map.height == 1 || len == 0 || line[len] == '\n'))
+			char_ok = 0;
 		if (line[len] != '1' && line[len] != '0' && line[len] != 'C'
 			&& line[len] != 'P' && line[len] != 'E' && line[len] != '\n')
 			char_ok = 0;
+		i++;
 	}
-	// TODO: if char is ok, check if it is in the correct place in the map.
-	if (game->map.height == 1 && char_ok == 1)
-		char_ok = 0;
-	if (game->map.width != len - 1 || char_ok == 0)
+	if (((line && game->map.width - len != i) || char_ok == 0) || (char_ok && !line))
 	{
+		if (!line && temp)
+			pre_checks(game, temp, fd);
 		free(line);
 		close(fd);
 		line = get_next_line(fd);
@@ -60,6 +66,16 @@ void	pre_checks(t_game *game, char *line, int fd)
 			STDERR_FILENO);
 		exit_game(game);
 	}
+	if (!temp)
+		temp = (char *)malloc(sizeof(char) * (game->map.width + 2));
+	if (line)
+		ft_strcpy(temp,line);
+	else
+	{
+		free(temp);
+		return (0);
+	}
+	return (1);
 }
 
 /* checks that map given is a valid map. Return 1 if true, if not, return 0 */

@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:44:18 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/22 17:39:13 by lcarrizo         ###   ########.fr       */
+/*   Updated: 2024/06/25 14:41:27 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,17 @@ void	count_map_dimensions(t_game *game, char *file_path)
 		perror("Error opening map file");
 		exit(EXIT_FAILURE);
 	}
-	game->map.width = 0;
-	game->map.height = 0;
+	game->map.height = 1;
 	line = get_next_line(fd);
-	while (line != NULL)
+	//game->map.width = ft_strlen(line) - 1;
+	game->map.width = 15;
+	while (pre_checks(game, line, fd) ||  line != NULL)
 	{
-		if (game->map.width == 0)
-			game->map.width = ft_strlen(line) - 1;
 		game->map.height++;
-		pre_checks(game, line, fd);
 		free(line);
 		line = get_next_line(fd);
 	}
+	game->map.height--;
 	close(fd);
 }
 
