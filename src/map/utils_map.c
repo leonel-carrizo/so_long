@@ -43,15 +43,20 @@ void	pre_checks(t_game *game, char *line, int fd)
 	len = -1;
 	char_ok = 1;
 	while (line[++len])
+	{
 		if (line[len] != '1' && line[len] != '0' && line[len] != 'C'
 			&& line[len] != 'P' && line[len] != 'E' && line[len] != '\n')
-			char_ok = 1;
-	if (game->map.width != len - 1 || !char_ok)
+			char_ok = 0;
+	}
+	// TODO: if char is ok, check if it is in the correct place in the map.
+	if (game->map.height == 1 && char_ok == 1)
+		char_ok = 0;
+	if (game->map.width != len - 1 || char_ok == 0)
 	{
 		free(line);
 		close(fd);
 		line = get_next_line(fd);
-		ft_putstr_fd("Error:\nMap with invalid proportions.\n",
+		ft_putstr_fd("Error:\nInvalid Map.\n",
 			STDERR_FILENO);
 		exit_game(game);
 	}
@@ -59,7 +64,7 @@ void	pre_checks(t_game *game, char *line, int fd)
 
 /* checks that map given is a valid map. Return 1 if true, if not, return 0 */
 int	check_valid_map(t_game *game)
-	/* TODO */
+	// TODO
 {
 	(void)game;
 	return (1);
