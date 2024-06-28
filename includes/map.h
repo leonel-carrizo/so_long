@@ -20,10 +20,10 @@
 # endif
 
 int		check_valid_map(t_game *game);
-int	pre_checks(t_game *game, char *line, int fd);
+int		pre_checks(t_game *game, char *line, char **str, int ok[]);
+int		count_map_dimensions(t_game *game, char *file_path);
 void	load_map(t_game *game, char *file_path);
 void	allocate_map(t_map *map, int width, int height);
-void	count_map_dimensions(t_game *game, char *file_path);
 void	fill_map(t_game *game, char *file_path);
 void	parse_map_entities(t_game *game);
 void	init_entities_positions(t_game *game);

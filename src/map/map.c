@@ -18,10 +18,14 @@ void	allocate_map(t_map *map, int width, int height)
 	int	i;
 
 	map->tiles = (char **)malloc(height * sizeof(char *));
+	if (!map->tiles)
+		return ;
 	i = 0;
 	while (i < height)
 	{
-		map->tiles[i] = (char *)malloc((width + 2) * sizeof(char));
+		map->tiles[i] = (char *)ft_calloc(width, ((width + 2) * sizeof(char)));
+		if (!map->tiles[i])
+			return ;
 		i++;
 	}
 }
@@ -52,29 +56,32 @@ void	fill_map(t_game *game, char *file_path)
 }
 
 /* Count map dimensions from file */
-void	count_map_dimensions(t_game *game, char *file_path)
+int	count_map_dimensions(t_game *game, char *file_path)
 {
-	int		fd;
-	char	*line;
+	int			fd;
+	char		*line;
+	static int	ok = 1;
+	static char	*temp = NULL;
 
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
-	{
-		perror("Error opening map file");
-		exit(EXIT_FAILURE);
-	}
-	game->map.height = 1;
+		return (0);
 	line = get_next_line(fd);
-	//game->map.width = ft_strlen(line) - 1;
-	game->map.width = 15;
-	while (pre_checks(game, line, fd) ||  line != NULL)
+	game->map.width = ft_strlen(line) - 1;
+	while (pre_checks(game, line, &temp, &ok) && ok && line != NULL)
 	{
 		game->map.height++;
 		free(line);
+		line = NULL;
+		if (!ok)
+			close(fd);
 		line = get_next_line(fd);
 	}
-	game->map.height--;
 	close(fd);
+	get_next_line(fd);
+	if (ok == 0)
+		return (0);
+	return (1);
 }
 
 /* Load the map from the specified file */
@@ -82,7 +89,11 @@ void	load_map(t_game *game, char *file_path)
 {
 	int	valid_map;
 
-	count_map_dimensions(game, file_path);
+	if (!count_map_dimensions(game, file_path))
+	{
+		ft_putstr_fd("Error:\nMap content is not valid.\n", 2);
+		exit_game(game);
+	}
 	allocate_map(&game->map, game->map.width, game->map.height);
 	fill_map(game, file_path);
 	parse_map_entities(game);

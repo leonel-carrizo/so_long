@@ -31,50 +31,56 @@ void	free_map(t_map *map)
 	}
 }
 
-/*	preliminar checks, if map is not square, game exit.
-	By closing the file and calling get_netx_line(),
-	it ensures free of memory allocated in its buffer.
-*/
-int	pre_checks(t_game *game, char *line, int fd)
+/* check if the char for the tile is valid */
+static int	valid_char_pos(t_game *game, char *line, char *str, int end)
 {
 	int	len;
-	int 	i;
-	int	char_ok;
-	static char	*temp ;
 
-	len = game->map.width;
-	char_ok = 1;
-	i = 1;
-	while (line && line[--len])
+	if (str && line && ft_strlen(str) != ft_strlen(line))
 	{
-		if ((line[len] == '0' || line[len] == 'C' || line[len] == 'P'|| line[len] == 'E')
-			&& (game->map.height == 1 || len == 0 || line[len] == '\n'))
-			char_ok = 0;
-		if (line[len] != '1' && line[len] != '0' && line[len] != 'C'
-			&& line[len] != 'P' && line[len] != 'E' && line[len] != '\n')
-			char_ok = 0;
-		i++;
-	}
-	if (((line && game->map.width - len != i) || char_ok == 0) || (char_ok && !line))
-	{
-		if (!line && temp)
-			pre_checks(game, temp, fd);
+		free(str);
 		free(line);
-		close(fd);
-		line = get_next_line(fd);
-		ft_putstr_fd("Error:\nInvalid Map.\n",
-			STDERR_FILENO);
-		exit_game(game);
-	}
-	if (!temp)
-		temp = (char *)malloc(sizeof(char) * (game->map.width + 2));
-	if (line)
-		ft_strcpy(temp,line);
-	else
-	{
-		free(temp);
 		return (0);
 	}
+	len = game->map.width;
+	while (--len)
+	{
+		if ((!line || !ft_strchr("0PCE1", line[len]))
+			|| ((line[0] != '1') || (line[game->map.width - 1] != '1')
+				|| (game->map.height == 0 && line[len] != '1')
+				|| (end && line[len] != '1')))
+		{
+			free(line);
+			if (end == 0)
+				free(str);
+			return (0);
+		}
+	}
+	return (1);
+}
+
+/*	preliminar checks. */
+int	pre_checks(t_game *game, char *line, char **str, int ok[])
+{
+	static int	end = 0;
+
+	if (!*str)
+		*str = ft_strdup(line);
+	if (!line)
+	{
+		line = *str;
+		end = 1;
+	}
+	if (valid_char_pos(game, line, *str, end) == 0)
+	{
+		*str = NULL;
+		(*ok) = 0;
+		return (0);
+	}
+	if (line)
+		ft_strncpy(*str, line, game->map.width);
+	if (end)
+		free(*str);
 	return (1);
 }
 
