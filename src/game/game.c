@@ -73,7 +73,7 @@ void	init_images(t_game *game)
 	game->img_floor = mlx_xpm_file_to_image(
 			game->mlx, "assets/images/floor1.xpm", &width, &height);
 	game->img_player = mlx_xpm_file_to_image(
-			game->mlx, "assets/images/player_start.xpm", &width, &height);
+			game->mlx, "assets/images/player_front.xpm", &width, &height);
 	game->img_collect = mlx_xpm_file_to_image(
 			game->mlx, "assets/images/coin_1.xpm", &width, &height);
 	game->img_exit = mlx_xpm_file_to_image(
