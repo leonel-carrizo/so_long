@@ -55,6 +55,33 @@ void	fill_map(t_game *game, char *file_path)
 	close(fd);
 }
 
+/*	Check that the map has valid entities,
+that they are in the allowed position
+and that units that must be unique are not repeated. */
+static int	pre_checks(t_game *game, char *line, char **str, int ok[])
+{
+	static int	end = 0;
+
+	if (!*str)
+		*str = ft_strdup(line);
+	if (!line)
+	{
+		line = *str;
+		end = 1;
+	}
+	if (valid_char_pos(game, line, *str, end) == 0)
+	{
+		*str = NULL;
+		(*ok) = 0;
+		return (0);
+	}
+	if (line)
+		ft_strncpy(*str, line, game->map.width);
+	if (end)
+		free(*str);
+	return (1);
+}
+
 /* Count map dimensions from file */
 int	count_map_dimensions(t_game *game, char *file_path)
 {

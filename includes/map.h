@@ -20,7 +20,7 @@
 # endif
 
 int		check_valid_map(t_game *game);
-int		pre_checks(t_game *game, char *line, char **str, int ok[]);
+int		valid_char_pos(t_game *game, char *line, char *str, int end);
 int		count_map_dimensions(t_game *game, char *file_path);
 void	load_map(t_game *game, char *file_path);
 void	allocate_map(t_map *map, int width, int height);

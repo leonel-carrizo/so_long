@@ -31,10 +31,34 @@ void	free_map(t_map *map)
 	}
 }
 
-/* check if the char for the tile is valid */
-static int	valid_char_pos(t_game *game, char *line, char *str, int end)
+/* checks if chars/tiles that should be unique are duplicated */
+static int	valid_num_entities(char *str, int end)
 {
-	int	len;
+	static int	found_p = 0;
+	static int	found_e = 0;
+	static int	found_c = 0;
+
+	if (*str == 'P' || *str == 'E' || *str == 'C')
+	{
+		if (*str == 'P')
+			found_p++;
+		else if (*str == 'E')
+			found_e++;
+		else if (*str == 'C')
+			found_c++;
+		if (found_e > 1 || found_p > 1)
+			return (0);
+	}
+	if (end == 1 && (found_c == 0 || found_e != 1 || found_p != 1))
+		return (0);
+	return (1);
+}
+
+/* check if the char for the tile and position are valid */
+int	valid_char_pos(t_game *game, char *line, char *str, int end)
+{
+	int		len;
+	char	*found;
 
 	if (str && line && ft_strlen(str) != ft_strlen(line))
 	{
@@ -45,7 +69,8 @@ static int	valid_char_pos(t_game *game, char *line, char *str, int end)
 	len = game->map.width;
 	while (--len)
 	{
-		if ((!line || !ft_strchr("0PCE1", line[len]))
+		found = ft_strchr("0PCE1", line[len]);
+		if ((!line || !found || !valid_num_entities(found, end))
 			|| ((line[0] != '1') || (line[game->map.width - 1] != '1')
 				|| (game->map.height == 0 && line[len] != '1')
 				|| (end && line[len] != '1')))
@@ -56,31 +81,6 @@ static int	valid_char_pos(t_game *game, char *line, char *str, int end)
 			return (0);
 		}
 	}
-	return (1);
-}
-
-/*	preliminar checks. */
-int	pre_checks(t_game *game, char *line, char **str, int ok[])
-{
-	static int	end = 0;
-
-	if (!*str)
-		*str = ft_strdup(line);
-	if (!line)
-	{
-		line = *str;
-		end = 1;
-	}
-	if (valid_char_pos(game, line, *str, end) == 0)
-	{
-		*str = NULL;
-		(*ok) = 0;
-		return (0);
-	}
-	if (line)
-		ft_strncpy(*str, line, game->map.width);
-	if (end)
-		free(*str);
 	return (1);
 }
 
