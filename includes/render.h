@@ -19,5 +19,6 @@ void	draw_tile(t_game *game, void *img, int x, int y);
 void	draw_map(t_game *game);
 void	draw_current_tile(t_game *game, int x, int y);
 void	update_door_state(t_game *game);
+void    init_wall(t_game *game, int x, int y);
 
 #endif
