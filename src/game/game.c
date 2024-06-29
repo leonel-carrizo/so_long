@@ -24,7 +24,7 @@ void	update_door_state(t_game *game)
 		mlx_destroy_image(game->mlx, game->img_exit);
 		game->img_exit = mlx_xpm_file_to_image(
 				game->mlx,
-				"assets/images/door_opened.xpm",
+				"assets/images/doors/door_opened.xpm",
 				&width, &height);
 	}
 }
@@ -55,7 +55,7 @@ void	update_tiles(t_game *game)
 		mlx_destroy_image(game->mlx, game->img_exit);
 		game->img_exit = mlx_xpm_file_to_image(
 				game->mlx,
-				"assets/images/player_door.xpm",
+				"assets/images/players/player_door_exit.xpm",
 				&width, &height);
 		draw_map(game);
 		exit_game(game);
@@ -69,15 +69,15 @@ void	init_images(t_game *game)
 	int	height;
 
 	game->img_wall = mlx_xpm_file_to_image(
-			game->mlx, "assets/images/wall1.xpm", &width, &height);
+			game->mlx, "assets/images/walls/wall5.xpm", &width, &height);
 	game->img_floor = mlx_xpm_file_to_image(
-			game->mlx, "assets/images/floor1.xpm", &width, &height);
+			game->mlx, "assets/images/floor/floor1.xpm", &width, &height);
 	game->img_player = mlx_xpm_file_to_image(
-			game->mlx, "assets/images/player_front.xpm", &width, &height);
+			game->mlx, "assets/images/players/player_front1.xpm", &width, &height);
 	game->img_collect = mlx_xpm_file_to_image(
-			game->mlx, "assets/images/coin_1.xpm", &width, &height);
+			game->mlx, "assets/images/collectibles/coin_1.xpm", &width, &height);
 	game->img_exit = mlx_xpm_file_to_image(
-			game->mlx, "assets/images/door_closed.xpm", &width, &height);
+			game->mlx, "assets/images/doors/door_closed.xpm", &width, &height);
 }
 
 /* Initialize the game and load the map */

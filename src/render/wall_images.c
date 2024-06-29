@@ -23,18 +23,18 @@ void	init_wall(t_game *game, int x, int y)
 	{
 		mlx_destroy_image(game->mlx, game->img_wall);
 		game->img_wall = mlx_xpm_file_to_image(game->mlx,
-				"assets/images/block0.xpm", &width, &height);
+				"assets/images/walls/block0.xpm", &width, &height);
 	}
 	else if ((y == 0 && x == 1) && (game->map.tiles[y][x] == '1'))
 	{
 		mlx_destroy_image(game->mlx, game->img_wall);
 		game->img_wall = mlx_xpm_file_to_image(game->mlx,
-				"assets/images/block1.xpm", &width, &height);
+				"assets/images/walls/block1.xpm", &width, &height);
 	}
 	else
 	{
 		mlx_destroy_image(game->mlx, game->img_wall);
 		game->img_wall = mlx_xpm_file_to_image(game->mlx,
-				"assets/images/wall1.xpm", &width, &height);
+				"assets/images/walls/wall5.xpm", &width, &height);
 	}
 }
