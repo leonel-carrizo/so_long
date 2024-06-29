@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:05:04 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/22 17:35:44 by lcarrizo         ###   ########.fr       */
+/*   Updated: 2024/06/29 15:20:21 by lcarrizo         ###    ###london.com    */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,8 @@
 # include "map.h"
 # include "game.h"
 
-# ifndef WIN_WIDTH
-#  define WIN_WIDTH 1080
-# endif
-
-# ifndef WIN_HEIGHT
-#  define WIN_HEIGHT 920
+# ifndef WIN_TITLE
+#  define WIN_TITLE "so_long game"
 # endif
 
 // GAME KEYWORDS

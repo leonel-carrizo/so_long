@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:42:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/22 15:55:23 by lcarrizo         ###   ########.fr       */
+/*   Updated: 2024/06/29 15:18:58 by lcarrizo         ###    ###london.com    */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	update_door_state(t_game *game)
 		mlx_destroy_image(game->mlx, game->img_exit);
 		game->img_exit = mlx_xpm_file_to_image(
 				game->mlx,
-				"assets/images/doors/door_opened.xpm",
+				DOOR_OPENED_IMG,
 				&width, &height);
 	}
 }
@@ -32,12 +32,15 @@ void	update_door_state(t_game *game)
 /* update changes in the map after events */
 void	update_map(t_game *game, int x, int y)
 {
-	if (
-		game->map.tiles[game->player.position.y][game->player.position.x] == 'C'
-		)
+	int	pos_x;
+	int	pos_y;
+
+	pos_x = game->player.position.x;
+	pos_y = game->player.position.y;
+	if (game->map.tiles[pos_y][pos_x] == COLLECTIBLE)
 		game->map.n_collect--;
-	game->map.tiles[y][x] = '0';
-	game->map.tiles[game->player.position.y][game->player.position.x] = 'P';
+	game->map.tiles[y][x] = EMPTY_SPACE;
+	game->map.tiles[pos_y][pos_x] = PLAYER;
 	update_tiles(game);
 	draw_map(game);
 }
@@ -54,8 +57,7 @@ void	update_tiles(t_game *game)
 	{
 		mlx_destroy_image(game->mlx, game->img_exit);
 		game->img_exit = mlx_xpm_file_to_image(
-				game->mlx,
-				"assets/images/players/player_door_exit.xpm",
+				game->mlx, PLAYER_DOOR_EXIT_IMG,
 				&width, &height);
 		draw_map(game);
 		exit_game(game);
@@ -69,15 +71,15 @@ void	init_images(t_game *game)
 	int	height;
 
 	game->img_wall = mlx_xpm_file_to_image(
-			game->mlx, "assets/images/walls/wall5.xpm", &width, &height);
+			game->mlx, WALL_5_IMG, &width, &height);
 	game->img_floor = mlx_xpm_file_to_image(
-			game->mlx, "assets/images/floor/floor1.xpm", &width, &height);
+			game->mlx, FLOOR_1_IMG, &width, &height);
 	game->img_player = mlx_xpm_file_to_image(
-			game->mlx, "assets/images/players/player_front1.xpm", &width, &height);
+			game->mlx, PLAYER_FRONT_1_IMG, &width, &height);
 	game->img_collect = mlx_xpm_file_to_image(
-			game->mlx, "assets/images/collectibles/coin_1.xpm", &width, &height);
+			game->mlx, COIN_1_IMG, &width, &height);
 	game->img_exit = mlx_xpm_file_to_image(
-			game->mlx, "assets/images/doors/door_closed.xpm", &width, &height);
+			game->mlx, DOOR_CLOSED_IMG, &width, &height);
 }
 
 /* Initialize the game and load the map */
@@ -90,7 +92,7 @@ void	init_game(t_game *game, char *map_path)
 	init_images(game);
 	game->win = mlx_new_window(
 			game->mlx, game->map.width * TILE_SIZE,
-			game->map.height * TILE_SIZE, "so_long game");
+			game->map.height * TILE_SIZE, WIN_TITLE);
 	if (!game->win)
 		exit_game(game);
 }

@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:45:07 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/21 13:01:27 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/06/29 15:18:16 by lcarrizo         ###    ###london.com    */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	draw_tile(t_game *game, void *img, int x, int y)
 	moves = ft_itoa(game->player.n_moves);
 	mlx_put_image_to_window(
 		game->mlx, game->win, img, x * TILE_SIZE, y * TILE_SIZE);
-	mlx_string_put(game->mlx, game->win, 5, 20, 0x00FFD500, "Moves:");
-	mlx_string_put(game->mlx, game->win, 42, 21, 0x00FFD500, moves);
+	mlx_string_put(game->mlx, game->win, 5, 20, MOVES_COLOR, "Moves:");
+	mlx_string_put(game->mlx, game->win, 42, 21, MOVES_COLOR, moves);
 	free(moves);
 }
 
@@ -33,11 +33,11 @@ void	draw_current_tile(t_game *game, int x, int y)
 		init_wall(game, x, y);
 		draw_tile(game, game->img_wall, x, y);
 	}
-	else if (game->map.tiles[y][x] == 'P')
+	else if (game->map.tiles[y][x] == PLAYER)
 		draw_tile(game, game->img_player, x, y);
-	else if (game->map.tiles[y][x] == 'C')
+	else if (game->map.tiles[y][x] == COLLECTIBLE)
 		draw_tile(game, game->img_collect, x, y);
-	else if (game->map.tiles[y][x] == 'E')
+	else if (game->map.tiles[y][x] == MAP_EXIT)
 		draw_tile(game, game->img_exit, x, y);
 	else
 		draw_tile(game, game->img_floor, x, y);
