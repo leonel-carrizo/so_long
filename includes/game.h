@@ -16,6 +16,7 @@
 # include "so_long.h"
 
 int		exit_game(t_game *game);
+int		check_valid_path(t_game *game);
 void	init_images(t_game *game);
 void	init_game(t_game *game, char *map_path);
 void	init_structs(t_game *game);
