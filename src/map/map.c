@@ -58,54 +58,58 @@ void	fill_map(t_game *game, char *file_path)
 /*	Check that the map has valid entities,
 that they are in the allowed position
 and that units that must be unique are not repeated. */
-static int	pre_checks(t_game *game, char *line, char **str, int ok[])
+static int	pre_checks(t_game *game, char **line, int ok[])
 {
 	static int	end = 0;
+	static char	*temp = NULL;
 
-	if (!*str)
-		*str = ft_strdup(line);
-	if (!line)
+	if (game->map.width < 6)
+		(*ok) = 0;
+	if (!temp && *line)
+		temp = ft_strdup(*line);
+	if (!*line && temp)
 	{
-		line = *str;
+		*line = temp;
 		end = 1;
 	}
-	if (valid_char_pos(game, line, *str, end) == 0)
+	if (*line && temp && valid_char_pos(game, *line, temp, end) == 0)
 	{
-		*str = NULL;
 		(*ok) = 0;
+		temp = NULL;
 		return (0);
 	}
-	if (line)
-		ft_strncpy(*str, line, game->map.width);
+	if (*line)
+		ft_strlcpy(temp, *line, game->map.width + 2);
 	if (end)
-		free(*str);
-	return (1);
+		free(temp);
+	return ((*ok));
 }
 
 /* Count map dimensions from file */
 int	count_map_dimensions(t_game *game, char *file_path)
 {
 	int			fd;
-	char		*line;
 	static int	ok = 1;
-	static char	*temp = NULL;
+	static char	*line = NULL;
 
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 		return (0);
 	line = get_next_line(fd);
 	game->map.width = ft_strlen(line) - 1;
-	while (pre_checks(game, line, &temp, &ok) && ok && line != NULL)
+	while (line != NULL)
 	{
+		if (ok)
+			pre_checks(game, &line, &ok);
 		game->map.height++;
 		free(line);
-		line = NULL;
-		if (!ok)
-			close(fd);
 		line = get_next_line(fd);
+		if (!line)
+		{
+			pre_checks(game, &line, &ok);
+			line = NULL;
+		}
 	}
-	close(fd);
-	get_next_line(fd);
 	if (ok == 0)
 		return (0);
 	return (1);
@@ -124,7 +128,7 @@ void	load_map(t_game *game, char *file_path)
 	allocate_map(&game->map, game->map.width, game->map.height);
 	fill_map(game, file_path);
 	parse_map_entities(game);
-	valid_map = check_valid_map(game);
+	valid_map = check_valid_path(game);
 	if (!valid_map)
 	{
 		ft_printf("Error:\nThe map is not valid, try different a file.\n");

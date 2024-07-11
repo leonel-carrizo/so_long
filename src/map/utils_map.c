@@ -60,34 +60,24 @@ int	valid_char_pos(t_game *game, char *line, char *str, int end)
 	int		len;
 	char	*found;
 
-	if (str && line && ft_strlen(str) != ft_strlen(line))
+	len = ft_strlen(line) - 1;
+	if (!len || (str && (len + 1 != ((int)ft_strlen(str)))))
 	{
 		free(str);
-		free(line);
 		return (0);
 	}
-	len = game->map.width;
-	while (--len)
+	while (len)
 	{
-		found = ft_strchr(VALID_CHAR, line[len]);
+		found = ft_strchr(VALID_CHAR, line[len - 1]);
 		if ((!line || !found || !valid_num_entities(found, end))
 			|| ((line[0] != WALL) || (line[game->map.width - 1] != WALL)
-				|| (game->map.height == 0 && line[len] != WALL)
-				|| (end && line[len] != WALL)))
+				|| (game->map.height == 0 && line[len - 1] != WALL)
+				|| (end && line[len - 1] != WALL)))
 		{
-			free(line);
-			if (end == 0)
-				free(str);
+			free(str);
 			return (0);
 		}
+		len--;
 	}
-	return (1);
-}
-
-/* checks that map given is a valid map. Return 1 if true, if not, return 0 */
-int	check_valid_map(t_game *game)
-	// TODO
-{
-	(void)game;
 	return (1);
 }
