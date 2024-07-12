@@ -101,7 +101,7 @@ static int	dfs_explore(t_map map, int row, int col, int **visited)
 		new_col = col + moves(i, 1);
 		if ((is_valid_position(map, new_row, new_col))
 			&& !visited[new_row][new_col])
-			if (explore(map, new_row, new_col, visited))
+			if (dfs_explore(map, new_row, new_col, visited))
 				return (1);
 	}
 	return (0);
