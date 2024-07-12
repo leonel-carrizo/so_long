@@ -49,6 +49,7 @@ void	init_structs(t_game *game)
 	game->img_collect = NULL;
 	game->img_exit = NULL;
 	game->img_floor = NULL;
+	game->img_start = NULL;
 }
 
 /* Release the resources assigned to the game */
