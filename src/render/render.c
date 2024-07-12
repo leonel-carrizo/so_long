@@ -28,19 +28,28 @@ void	draw_tile(t_game *game, void *img, int x, int y)
 /* Draws the current tile based on its type */
 void	draw_current_tile(t_game *game, int x, int y)
 {
-	if (game->map.tiles[y][x] == '1')
+	if (game->map.tiles[y][x] == WALL)
 	{
 		init_wall(game, x, y);
 		draw_tile(game, game->img_wall, x, y);
 	}
 	else if (game->map.tiles[y][x] == PLAYER)
+	{
+		init_player_start(game, x, y);
 		draw_tile(game, game->img_player, x, y);
+	}
 	else if (game->map.tiles[y][x] == COLLECTIBLE)
 		draw_tile(game, game->img_collect, x, y);
 	else if (game->map.tiles[y][x] == MAP_EXIT)
 		draw_tile(game, game->img_exit, x, y);
-	else
+	else if (game->map.tiles[y][x] == EMPTY_SPACE)
+	{
+		if (game->map.start.bussy == 0)
+			draw_tile(game, game->img_start,
+				game->map.start.pos.x,
+				game->map.start.pos.y);
 		draw_tile(game, game->img_floor, x, y);
+	}
 }
 
 /* Draw the entire map */

@@ -69,9 +69,16 @@ void	init_collectibles(t_map *map)
 	}
 }
 
-/* Analyzes the entities on the map (player, collectibles, exit door) */
+/* 	Analyzes the entities on the map
+	(player, collectibles, exit door, start door) */
 void	parse_map_entities(t_game *game)
 {
 	init_entities_positions(game);
 	init_collectibles(&game->map);
+	if (game->player.n_moves == 0)
+	{
+		game->map.start.pos.x = game->player.position.x;
+		game->map.start.pos.y = game->player.position.y;
+		game->map.start.bussy = 0;
+	}
 }

@@ -21,9 +21,11 @@
 # define BLOCK_1_IMG "assets/images/walls/block1.xpm"
 # define COIN_1_IMG "assets/images/collectibles/coin_1.xpm"
 # define PLAYER_FRONT_1_IMG "assets/images/players/player_front1.xpm"
+# define START_DOOR_IMG "assets/images/doors/start_door.xpm"
 # define DOOR_OPENED_IMG "assets/images/doors/door_opened.xpm"
 # define DOOR_CLOSED_IMG "assets/images/doors/door_closed.xpm"
 # define PLAYER_DOOR_EXIT_IMG "assets/images/players/player_door_exit.xpm"
+# define PLAYER_DOOR_START_IMG "assets/images/players/player_door_start.xpm"
 
 # define MOVES_COLOR 0x00FFD500
 
@@ -32,5 +34,6 @@ void	draw_map(t_game *game);
 void	draw_current_tile(t_game *game, int x, int y);
 void	update_door_state(t_game *game);
 void	init_wall(t_game *game, int x, int y);
+void	init_player_start(t_game *game, int x, int y);
 
 #endif

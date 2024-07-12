@@ -80,6 +80,8 @@ void	init_images(t_game *game)
 			game->mlx, COIN_1_IMG, &width, &height);
 	game->img_exit = mlx_xpm_file_to_image(
 			game->mlx, DOOR_CLOSED_IMG, &width, &height);
+	game->img_start = mlx_xpm_file_to_image(
+			game->mlx, START_DOOR_IMG, &width, &height);
 }
 
 /* Initialize the game and load the map */

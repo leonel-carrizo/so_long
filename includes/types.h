@@ -27,6 +27,12 @@ typedef struct s_collectible
 	t_position	position;
 }	t_collect;
 
+typedef struct s_start
+{
+	int			bussy;
+	t_position	pos;
+}	t_start;
+
 typedef struct s_exit
 {
 	int			is_open;
@@ -39,6 +45,7 @@ typedef struct s_map
 	int			height;
 	int			n_collect;
 	char		**tiles;
+	t_start		start;
 	t_exit		exit;
 	t_collect	*collect;
 }	t_map;
@@ -57,6 +64,7 @@ typedef struct s_game
 	void			*img_floor;
 	void			*img_player;
 	void			*img_collect;
+	void			*img_start;
 	void			*img_exit;
 	int				num_collec;
 	t_player		player;

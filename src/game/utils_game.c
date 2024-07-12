@@ -65,6 +65,8 @@ int	exit_game(t_game *game)
 		mlx_destroy_image(game->mlx, game->img_exit);
 	if (game->img_floor)
 		mlx_destroy_image(game->mlx, game->img_floor);
+	if (game->img_start)
+		mlx_destroy_image(game->mlx, game->img_start);
 	if (game->win)
 	{
 		mlx_destroy_window(game->mlx, game->win);
