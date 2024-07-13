@@ -41,6 +41,7 @@ void	init_structs(t_game *game)
 	game->player.n_moves = 0;
 	game->player.position.x = -1;
 	game->player.position.y = -1;
+	game->player.won = 0;
 	game->map.exit.is_open = 0;
 	game->map.collect = NULL;
 	game->map.n_collect = 0;

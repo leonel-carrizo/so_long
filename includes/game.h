@@ -21,6 +21,5 @@ void	init_images(t_game *game);
 void	init_game(t_game *game, char *map_path);
 void	init_structs(t_game *game);
 void	update_map(t_game *game, int x, int y);
-void	update_tiles(t_game *game);
 
 #endif

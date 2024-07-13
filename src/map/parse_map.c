@@ -79,6 +79,6 @@ void	parse_map_entities(t_game *game)
 	{
 		game->map.start.pos.x = game->player.position.x;
 		game->map.start.pos.y = game->player.position.y;
-		game->map.start.bussy = 0;
+		game->map.start.bussy = 1;
 	}
 }

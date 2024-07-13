@@ -86,7 +86,7 @@ static int	pre_checks(t_game *game, char **line, int ok[])
 }
 
 /* Count map dimensions from file */
-int	count_map_dimensions(t_game *game, char *file_path)
+static int	count_map_dimensions(t_game *game, char *file_path)
 {
 	int			fd;
 	static int	ok = 1;

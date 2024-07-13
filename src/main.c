@@ -67,7 +67,10 @@ int	key_press(int keycode, t_game *game)
 	{
 		update_player_position(game, keycode);
 		update_map(game, new_x, new_y);
+		draw_map(game, new_x, new_y);
 	}
+	if (game->player.won)
+		exit_game(game);
 	return (0);
 }
 
@@ -82,7 +85,7 @@ int	main(int argc, char *argv[])
 	}
 	init_structs(&game);
 	init_game(&game, argv[1]);
-	draw_map(&game);
+	draw_map(&game, 0, 0);
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.win, 17, 1L << 0, exit_game, &game);
 	mlx_loop(game.mlx);

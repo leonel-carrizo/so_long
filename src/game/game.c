@@ -12,23 +12,6 @@
 
 #include "../../includes/so_long.h"
 
-/* Updates the door status if all collectibles have been collected */
-void	update_door_state(t_game *game)
-{
-	int	width;
-	int	height;
-
-	if (game->map.n_collect == 0)
-	{
-		game->map.exit.is_open = 1;
-		mlx_destroy_image(game->mlx, game->img_exit);
-		game->img_exit = mlx_xpm_file_to_image(
-				game->mlx,
-				DOOR_OPENED_IMG,
-				&width, &height);
-	}
-}
-
 /* update changes in the map after events */
 void	update_map(t_game *game, int x, int y)
 {
@@ -41,30 +24,15 @@ void	update_map(t_game *game, int x, int y)
 		game->map.n_collect--;
 	game->map.tiles[y][x] = EMPTY_SPACE;
 	game->map.tiles[pos_y][pos_x] = PLAYER;
-	update_tiles(game);
-	draw_map(game);
-}
-
-/* update image to be rendered */
-void	update_tiles(t_game *game)
-{
-	int	width;
-	int	height;
-
-	update_door_state(game);
+	if (game->map.n_collect == 0)
+		game->map.exit.is_open = 1;
 	if (game->player.position.x == game->map.exit.pos.x
 		&& game->player.position.y == game->map.exit.pos.y)
-	{
-		mlx_destroy_image(game->mlx, game->img_exit);
-		game->img_exit = mlx_xpm_file_to_image(
-				game->mlx, PLAYER_DOOR_EXIT_IMG,
-				&width, &height);
-		draw_map(game);
-		exit_game(game);
-	}
+		game->player.won = 1;
 }
 
-/* Initialize game images */
+/* 	initializes the default images that will be drawn on the map
+	the first time it is displayed on the screen */
 void	init_images(t_game *game)
 {
 	int	width;
@@ -75,7 +43,7 @@ void	init_images(t_game *game)
 	game->img_floor = mlx_xpm_file_to_image(
 			game->mlx, FLOOR_1_IMG, &width, &height);
 	game->img_player = mlx_xpm_file_to_image(
-			game->mlx, PLAYER_FRONT_1_IMG, &width, &height);
+			game->mlx, PLAYER_DOOR_START_IMG, &width, &height);
 	game->img_collect = mlx_xpm_file_to_image(
 			game->mlx, COIN_1_IMG, &width, &height);
 	game->img_exit = mlx_xpm_file_to_image(

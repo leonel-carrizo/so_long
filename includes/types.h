@@ -53,6 +53,7 @@ typedef struct s_map
 typedef struct s_player
 {
 	int			n_moves;
+	int			won;
 	t_position	position;
 }	t_player;
 

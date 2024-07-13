@@ -30,10 +30,8 @@
 # define MOVES_COLOR 0x00FFD500
 
 void	draw_tile(t_game *game, void *img, int x, int y);
-void	draw_map(t_game *game);
-void	draw_current_tile(t_game *game, int x, int y);
-void	update_door_state(t_game *game);
-void	init_wall(t_game *game, int x, int y);
-void	init_player_start(t_game *game, int x, int y);
+void	draw_map(t_game *game, int old_x, int old_y);
+void	update_player_image(t_game *game, int x, int y);
+void	draw_exit_door(t_game *game);
 
 #endif

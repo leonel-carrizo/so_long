@@ -25,48 +25,86 @@ void	draw_tile(t_game *game, void *img, int x, int y)
 	free(moves);
 }
 
-/* Draws the current tile based on its type */
-void	draw_current_tile(t_game *game, int x, int y)
+/* Updates the door status if all collectibles have been collected */
+void	draw_exit_door(t_game *game)
 {
-	if (game->map.tiles[y][x] == WALL)
+	int	width;
+	int	height;
+
+	if (game->player.position.x == game->map.exit.pos.x
+		&& game->player.position.y == game->map.exit.pos.y)
+		return ;
+	if (game->map.n_collect == 0)
 	{
-		init_wall(game, x, y);
-		draw_tile(game, game->img_wall, x, y);
+		mlx_destroy_image(game->mlx, game->img_exit);
+		game->img_exit = mlx_xpm_file_to_image(game->mlx,
+				DOOR_OPENED_IMG, &width, &height);
 	}
-	else if (game->map.tiles[y][x] == PLAYER)
-	{
-		init_player_start(game, x, y);
-		draw_tile(game, game->img_player, x, y);
-	}
-	else if (game->map.tiles[y][x] == COLLECTIBLE)
-		draw_tile(game, game->img_collect, x, y);
-	else if (game->map.tiles[y][x] == MAP_EXIT)
-		draw_tile(game, game->img_exit, x, y);
-	else if (game->map.tiles[y][x] == EMPTY_SPACE)
-	{
-		if (game->map.start.bussy == 0)
-			draw_tile(game, game->img_start,
-				game->map.start.pos.x,
-				game->map.start.pos.y);
-		draw_tile(game, game->img_floor, x, y);
-	}
+	draw_tile(game, game->img_exit, game->map.exit.pos.x, game->map.exit.pos.y);
 }
 
-/* Draw the entire map */
-void	draw_map(t_game *game)
+/* Draw the space for the movement counter */
+static void	draw_space_counter(t_game *game)
+{
+	int	width;
+	int	height;
+
+	mlx_destroy_image(game->mlx, game->img_wall);
+	game->img_wall = mlx_xpm_file_to_image(game->mlx,
+			BLOCK_0_IMG, &width, &height);
+	draw_tile(game, game->img_wall, 0, 0);
+	mlx_destroy_image(game->mlx, game->img_wall);
+	game->img_wall = mlx_xpm_file_to_image(game->mlx,
+			BLOCK_1_IMG, &width, &height);
+	draw_tile(game, game->img_wall, 1, 0);
+}
+
+/* Draws the current tile based on its type */
+static void	draw_init_map(t_game *game)
 {
 	int	x;
 	int	y;
 
-	y = 0;
-	while (y < game->map.height)
+	y = -1;
+	while (++y < game->map.height)
 	{
-		x = 0;
-		while (x < game->map.width)
+		x = -1;
+		while (++x < game->map.width)
 		{
-			draw_current_tile(game, x, y);
-			x++;
+			if (game->map.tiles[y][x] == WALL)
+				draw_tile(game, game->img_wall, x, y);
+			else if (game->map.tiles[y][x] == PLAYER)
+				draw_tile(game, game->img_player, x, y);
+			else if (game->map.tiles[y][x] == COLLECTIBLE)
+				draw_tile(game, game->img_collect, x, y);
+			else if (game->map.tiles[y][x] == MAP_EXIT)
+				draw_tile(game, game->img_exit, x, y);
+			else if (game->map.tiles[y][x] == EMPTY_SPACE)
+				draw_tile(game, game->img_floor, x, y);
 		}
-		y++;
 	}
+}
+
+/* Draw the entire map */
+void	draw_map(t_game *game, int old_x, int old_y)
+{
+	int			p_x;
+	int			p_y;
+	static int	starting = 1;
+
+	p_x = game->player.position.x;
+	p_y = game->player.position.y;
+	if (starting == 1)
+		draw_init_map(game);
+	draw_space_counter(game);
+	if (!starting)
+	{
+		update_player_image(game, p_x, p_y);
+		draw_tile(game, game->img_floor, old_x, old_y);
+		draw_exit_door(game);
+	}
+	if (game->map.start.bussy == 0)
+		draw_tile(game, game->img_start, game->map.start.pos.x,
+			game->map.start.pos.y);
+	starting = 0;
 }
