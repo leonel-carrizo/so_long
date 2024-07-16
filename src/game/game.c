@@ -53,16 +53,29 @@ void	init_images(t_game *game)
 }
 
 /* Initialize the game and load the map */
-void	init_game(t_game *game, char *map_path)
+int	init_game(t_game *game, char *map_path)
 {
+	int map_loaded;
+
 	game->mlx = mlx_init();
 	if (!game->mlx)
-		exit_game(game);
-	load_map(game, map_path);
+	{
+		print_message(MLX_ERROR, FAIL_CONNEC);
+		return (FAIL_CONNEC);
+	}
+	map_loaded = load_map(game, map_path);
+	if (map_loaded < 1)
+	{
+		print_message(MAP_ERROR, map_loaded);
+		return (map_loaded);
+	}
 	init_images(game);
-	game->win = mlx_new_window(
-			game->mlx, game->map.width * TILE_SIZE,
+	game->win = mlx_new_window(game->mlx, game->map.width * TILE_SIZE,
 			game->map.height * TILE_SIZE, WIN_TITLE);
 	if (!game->win)
-		exit_game(game);
+	{
+		print_message(MLX_ERROR, FAIL_WIN);
+		return (FAIL_WIN);
+	}
+	return (SUCCESS);
 }

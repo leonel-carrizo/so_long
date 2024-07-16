@@ -18,12 +18,13 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <math.h>
 # include <stdio.h>
+# include <errno.h>
 # include "render.h"
 # include "types.h"
 # include "map.h"
 # include "game.h"
+# include "erros.h"
 
 # ifndef WIN_TITLE
 #  define WIN_TITLE "so_long game"
@@ -39,9 +40,8 @@
 # define DOWN 65364
 # define D 0x64
 # define RIGHT 65363
-# define RESTART 114
 
-int		is_ber_extention(const char *path);
+int		is_valid_map_arg(const char *path);
 
 /* Handles keyboard events */
 int		key_press(int keycode, t_game *game);

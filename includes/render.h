@@ -33,5 +33,6 @@ void	draw_tile(t_game *game, void *img, int x, int y);
 void	draw_map(t_game *game, int old_x, int old_y);
 void	update_player_image(t_game *game, int x, int y);
 void	draw_exit_door(t_game *game);
+void	render_error_message(int errnum);
 
 #endif

@@ -15,11 +15,13 @@
 
 # include "so_long.h"
 
-int		exit_game(t_game *game);
+int		exit_game(t_game *game, int status, int errnum);
 int		check_valid_path(t_game *game);
+int		init_game(t_game *game, char *map_path);
+int		print_message(int status, int errnum);
 void	init_images(t_game *game);
-void	init_game(t_game *game, char *map_path);
 void	init_structs(t_game *game);
 void	update_map(t_game *game, int x, int y);
+void	game_error_message(int errnum);
 
 #endif

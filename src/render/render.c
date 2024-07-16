@@ -94,6 +94,7 @@ void	draw_map(t_game *game, int old_x, int old_y)
 
 	p_x = game->player.position.x;
 	p_y = game->player.position.y;
+	game->map.start.bussy = 0;
 	if (starting == 1)
 		draw_init_map(game);
 	draw_space_counter(game);
@@ -103,7 +104,7 @@ void	draw_map(t_game *game, int old_x, int old_y)
 		draw_tile(game, game->img_floor, old_x, old_y);
 		draw_exit_door(game);
 	}
-	if (game->map.start.bussy == 0)
+	if (!starting && game->map.start.bussy == 0)
 		draw_tile(game, game->img_start, game->map.start.pos.x,
 			game->map.start.pos.y);
 	starting = 0;

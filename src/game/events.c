@@ -12,6 +12,21 @@
 
 #include "../../includes/so_long.h"
 
+/* Updates the player's position based on the key pressed */
+void	update_player_position(t_game *game, int keycode)
+{
+	if (keycode == A || keycode == LEFT)
+		game->player.position.x--;
+	else if (keycode == W || keycode == UP)
+		game->player.position.y--;
+	else if (keycode == D || keycode == RIGHT)
+		game->player.position.x++;
+	else if (keycode == S || keycode == DOWN)
+		game->player.position.y++;
+	game->player.n_moves++;
+	ft_printf("No. movements: %d\n", game->player.n_moves);
+}
+
 /* Checks if the player's move is valid */
 int	is_valid_move(t_map map, int new_x, int new_y, int keycode)
 {
@@ -38,38 +53,25 @@ int	is_valid_move(t_map map, int new_x, int new_y, int keycode)
 	return (0);
 }
 
-/* Updates the player's position based on the key pressed */
-void	update_player_position(t_game *game, int keycode)
-{
-	if (keycode == A || keycode == LEFT)
-		game->player.position.x--;
-	else if (keycode == W || keycode == UP)
-		game->player.position.y--;
-	else if (keycode == D || keycode == RIGHT)
-		game->player.position.x++;
-	else if (keycode == S || keycode == DOWN)
-		game->player.position.y++;
-	game->player.n_moves++;
-	ft_printf("No. movements: %d\n", game->player.n_moves);
-}
-
 /* Handles keyboard events */
 int	key_press(int keycode, t_game *game)
 {
 	int	new_x;
 	int	new_y;
+	int	valid;
 
 	if (keycode == ESC)
-		exit_game(game);
+		exit_game(game, GAME_OVER, USER_CLOSES);
 	new_x = game->player.position.x;
 	new_y = game->player.position.y;
-	if (is_valid_move(game->map, new_x, new_y, keycode))
+	valid = is_valid_move(game->map, new_x, new_y, keycode);
+	if (valid > 0)
 	{
 		update_player_position(game, keycode);
 		update_map(game, new_x, new_y);
 		draw_map(game, new_x, new_y);
 	}
 	if (game->player.won)
-		exit_game(game);
+		exit_game(game, GAME_OVER, USER_WIN);
 	return (0);
 }

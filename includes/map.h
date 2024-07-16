@@ -26,13 +26,14 @@
 # define PLAYER 'P'
 # define VALID_CHAR "01CEP"
 
-int		valid_char_pos(t_game *game, char *line, char *str, int end);
-void	load_map(t_game *game, char *file_path);
-void	allocate_map(t_map *map, int width, int height);
-void	fill_map(t_game *game, char *file_path);
+int		check_map_line(t_game *game, char *line, char *str, int end);
+int		load_map(t_game *game, char *file_path);
+int		allocate_map(t_map *map, int width, int height);
+int		fill_map(t_game *game, char *file_path);
 void	parse_map_entities(t_game *game);
 void	init_entities_positions(t_game *game);
 void	init_collectibles(t_map *map);
 void	free_map(t_map *map);
+void	map_error_message(int errnum);
 
 #endif

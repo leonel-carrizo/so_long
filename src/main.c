@@ -14,18 +14,19 @@
 
 int	main(int argc, char *argv[])
 {
+	int		start;
 	t_game	game;
 
-	if (!is_ber_extention(argv[1]) || argc != 2)
-	{
-		ft_putstr_fd("Usage: <map_file.ber>\n", 2);
-		exit(EXIT_FAILURE);
-	}
+	if (argc != 2)
+		return (exit_game(&game, GAME_ERROR, INV_N_ARG));
+	if (!is_valid_map_arg(argv[1]))
+		return (exit_game(&game, GAME_ERROR, INV_MAP_ARG));
 	init_structs(&game);
-	init_game(&game, argv[1]);
+	start = init_game(&game, argv[1]);
+	if (start < 1)
+		return (exit_game(&game, 0, start));
 	draw_map(&game, 0, 0);
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.win, 17, 1L << 0, exit_game, &game);
 	mlx_loop(game.mlx);
-	return (0);
 }

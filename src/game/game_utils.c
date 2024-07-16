@@ -13,7 +13,7 @@
 #include "../../includes/so_long.h"
 
 /*  checks if map file extention is correct .ber extention */
-int	is_ber_extention(const char *path)
+int	is_valid_map_arg(const char *path)
 {
 	int			len;
 	int			len_e;
@@ -25,9 +25,9 @@ int	is_ber_extention(const char *path)
 	while (--len_e)
 	{
 		if (path[--len] != ext[len_e])
-			return (0);
+			return (INV_MAP_ARG);
 	}
-	return (1);
+	return (SUCCESS);
 }
 
 /*·Initializes·game·structs·with·predefined·values·*/
@@ -53,8 +53,32 @@ void	init_structs(t_game *game)
 	game->img_start = NULL;
 }
 
+/* Display custom error message in shell  */
+int	print_message(int status, int errnum)
+{
+	if (!status)
+		ft_printf("%sGAME OVER:\n%s🥳 Sali! 🥳\n", B_C_GREEN, C_GREEN);
+	if (status == GAME_OVER)
+	{
+		if (errnum == USER_WIN)
+			ft_printf("%sGAME OVER:\n%s🥳 Congratulations YOU WIN! 🥳\n", B_C_GREEN, C_GREEN);
+		else if (errnum == USER_LOST)
+			ft_printf("%sGAME OVER:\n%sYou lost. 😔\n",B_C_GREEN, C_RED);
+		else if (errnum == USER_CLOSES)
+			ft_printf("%sGAME OVER:\n%sYou have abandoned the game.\n",B_C_GREEN, C_YELLOW);
+		return (0);
+	}
+	else if (status == GAME_ERROR)
+		game_error_message(errnum);
+	else if (status == MAP_ERROR)
+		map_error_message(errnum);
+	else if (status == RENDER_ERROR)
+		render_error_message(errnum);
+	return (errnum);
+}
+
 /* Release the resources assigned to the game */
-int	exit_game(t_game *game)
+int	exit_game(t_game *game, int status, int errnum)
 {
 	free_map(&game->map);
 	if (game->img_wall)
@@ -76,5 +100,5 @@ int	exit_game(t_game *game)
 	}
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
-	exit(EXIT_SUCCESS);
+	exit(print_message(status, errnum));
 }
