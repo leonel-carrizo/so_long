@@ -62,20 +62,21 @@ static int	valid_num_entities(char *str, int end)
 static int	valid_dimentions(char *line, char *str)
 {
 	int	len;
+
 	if (!line)
-		return (INVAL_DIMENTIONS);
+		return (INVAL_DIMENSIONS);
 	len = ft_strlen(line) - 1;
 	if (!len || (str && (len + 1 != ((int)ft_strlen(str)))))
 	{
-		print_message(MAP_ERROR, INVAL_DIMENTIONS);
-		return (INVAL_DIMENTIONS);
+		print_message(MAP_ERROR, INVAL_DIMENSIONS);
+		return (INVAL_DIMENSIONS);
 	}
 	return (len);
 }
 
 static int	valid_wall_pos(t_game *game, char *line, int len, int end)
 {
-	if ((!line)	|| ((line[0] != WALL) || (line[game->map.width - 1] != WALL)
+	if ((!line) || ((line[0] != WALL) || (line[game->map.width - 1] != WALL)
 			|| (game->map.height == 0 && line[len - 1] != WALL)
 			|| (end && line[len - 1] != WALL)))
 	{
@@ -93,9 +94,11 @@ int	check_map_line(t_game *game, char *line, char *str, int end)
 	int		wall_pos;
 	char	*found;
 
+	if (end == 1)
+		line = str;
 	len = valid_dimentions(line, str);
 	if (len <= 0)
-		return (INVAL_DIMENTIONS);
+		return (INVAL_DIMENSIONS);
 	while (len)
 	{
 		found = ft_strchr(VALID_CHAR, line[len - 1]);

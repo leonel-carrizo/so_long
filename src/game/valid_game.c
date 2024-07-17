@@ -25,7 +25,7 @@ static int	**create_matrix(t_map map)
 	i = -1;
 	temp = malloc((map.height - 1) * sizeof(int *));
 	if (!temp)
-		return(0);
+		return (0);
 	while (++i < (map.height - 1))
 	{
 		temp[i] = malloc((map.width - 1) * sizeof(int));
@@ -35,7 +35,7 @@ static int	**create_matrix(t_map map)
 			while (++j < i)
 				free(temp[j]);
 			free(temp);
-			return(0);
+			return (0);
 		}
 		ft_memset(temp[i], 0, (map.width - 1) * sizeof(int));
 	}

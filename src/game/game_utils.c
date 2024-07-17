@@ -61,11 +61,11 @@ int	print_message(int status, int errnum)
 	if (status == GAME_OVER)
 	{
 		if (errnum == USER_WIN)
-			ft_printf("%sGAME OVER:\n%s🥳 Congratulations YOU WIN! 🥳\n", B_C_GREEN, C_GREEN);
+			ft_printf("%sGAME OVER:\n%s%s\n", BC_GREEN, C_GREEN, MSG_YOU_WIN);
 		else if (errnum == USER_LOST)
-			ft_printf("%sGAME OVER:\n%sYou lost. 😔\n",B_C_GREEN, C_RED);
+			ft_printf("%sGAME OVER:\n%s%s\n", BC_GREEN, C_RED, MSG_YOU_LOST);
 		else if (errnum == USER_CLOSES)
-			ft_printf("%sGAME OVER:\n%sYou have abandoned the game.\n",B_C_GREEN, C_YELLOW);
+			ft_printf("%sGAME OVER:\n%s%s\n", BC_GREEN, C_YELLOW, USER_EXIT);
 		return (0);
 	}
 	else if (status == GAME_ERROR)

@@ -15,22 +15,19 @@
 void	map_error_message(int errnum)
 {
 	if (errnum == FAIL_MAP_ALLOC)
-			ft_printf("%sError:\nFailure to allocate memory for the map.\n", C_RED);
-	else if (errnum ==  FAIL_OPEN_FILE)
-			ft_printf("%sError:\nFailure when trying to open the map file. \
-			Check the extension or path file.\n", C_RED);
-	else if (errnum == INVAL_DIMENTIONS)
-		ft_printf("%sError:\nMap contains invalid proportion. \
-			It must be rectangular.\n", C_RED);
+		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_FAIL_ALLOC);
+	else if (errnum == FAIL_OPEN_FILE)
+		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_FAIL_OPEN);
+	else if (errnum == INVAL_DIMENSIONS)
+		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_INV_DIM);
 	else if (errnum == INVAL_N_ENTITIES)
-		ft_printf("%sError:\nThe map contains an invalid number of entities. \
-		\nThe map must contain 1 player, 1 exit and 1 collectible.\n", C_RED);
-	else if ( errnum == INVAL_WALL)
-		ft_printf("%sError:\nThe map is not surrounded by walls or blocks.\n", C_RED);
-	else if ( errnum == INVAL_OBJECT)
-		ft_printf("%sError:\nThe map contains an invalid object.\n", C_RED);
-	else if ( errnum == DOBLE_EXIT)
-		ft_printf("%sError:\nThe map must not contain more than one exit.\n", C_RED);
-	else if ( errnum == DOBLE_PLAYER)
-		ft_printf("%sError:\nThe map must not contain more than one player.\n", C_RED);
+		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_INV_N_ENTITIES);
+	else if (errnum == INVAL_WALL)
+		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_INV_WALL);
+	else if (errnum == INVAL_OBJECT)
+		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_INV_OBJ);
+	else if (errnum == DOBLE_EXIT)
+		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_DOB_EXIT);
+	else if (errnum == DOBLE_PLAYER)
+		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_DOB_PLAYER);
 }

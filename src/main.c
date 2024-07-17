@@ -19,7 +19,7 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 		return (print_message(GAME_ERROR, INV_N_ARG));
-	if (!is_valid_map_arg(argv[1]))
+	if (is_valid_map_arg(argv[1]) < 1)
 		return (print_message(GAME_ERROR, INV_MAP_ARG));
 	init_structs(&game);
 	start = init_game(&game, argv[1]);

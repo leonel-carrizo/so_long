@@ -75,10 +75,7 @@ static int	pre_checks(t_game *game, char **line, int ok[])
 	if (!temp && *line)
 		temp = ft_strdup(*line);
 	if (!*line && temp)
-	{
-		*line = temp;
 		end = 1;
-	}
 	check_line = check_map_line(game, *line, temp, end);
 	if (check_line < 1)
 	{
@@ -129,7 +126,7 @@ int	load_map(t_game *game, char *file_path)
 {
 	int	dimensions;
 	int	alloc_map;
-	int init_map;
+	int	init_map;
 	int	valid_map;
 
 	dimensions = count_map_dimensions(game, file_path);

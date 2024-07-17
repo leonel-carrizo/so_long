@@ -15,16 +15,13 @@
 void	game_error_message(int errnum)
 {
 	if (errnum == INV_N_ARG)
-			ft_printf("%sError:\nUsage: ./so_long <map_file.ber>\n", C_RED);
+		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_INV_ARG);
 	else if (errnum == INV_MAP_ARG)
-			ft_printf("%sError:\nThe map file is invalid. \
-			Check the extension or path.\n", C_RED);
+		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_INV_MAP_FILE);
 	else if (errnum == FAIL_CONNEC)
-		ft_printf("%sError:\nFail to set up the connection to the X server\n",
-			C_RED);
-	else if ( errnum == FAIL_WIN)
-		ft_printf("%sError:\nFail to create a new window\n", C_RED);
-	else if ( errnum == INAVAL_GAME)
-		ft_printf("%sError:\nImposible game. \
-		\nThe Player does not have access to the exit Or all collectibles.\n", C_RED);
+		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_FAIL_CONNEC);
+	else if (errnum == FAIL_WIN)
+		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_FAIL_WIN);
+	else if (errnum == INAVAL_GAME)
+		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_INV_PATH);
 }
