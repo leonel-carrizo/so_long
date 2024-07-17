@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 00:10:23 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/07/14 00:10:48 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/07/17 22:04:27 by lcarrizo         ###    ###london.com    */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ int	is_valid_move(t_map map, int new_x, int new_y, int keycode)
 		if (new_x < 0 || new_y < 0 || new_x >= map.width || new_y >= map.height)
 			return (0);
 		if (map.tiles[new_y][new_x] == '1')
-			return (0);
-		if (map.tiles[new_y][new_x] == 'E' && !map.exit.is_open)
 			return (0);
 		return (1);
 	}
