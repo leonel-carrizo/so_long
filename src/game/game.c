@@ -65,10 +65,7 @@ int	init_game(t_game *game, char *map_path)
 	}
 	map_loaded = load_map(game, map_path);
 	if (map_loaded < 1)
-	{
-		print_message(MAP_ERROR, map_loaded);
 		return (map_loaded);
-	}
 	init_images(game);
 	game->win = mlx_new_window(game->mlx, game->map.width * TILE_SIZE,
 			game->map.height * TILE_SIZE, WIN_TITLE);

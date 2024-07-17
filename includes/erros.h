@@ -33,21 +33,13 @@
 # define B_C_CYAN "\033[1;36m"
 # define B_C_WHITE "\033[1;37m"
 
-# define ULINE_BLACK "\033[4;30m"
-# define ULINE_RED "\033[4;31m"
-# define ULINE_GREEN "\033[4;32m"
-# define ULINE_YELLOW "\033[4;33m"
-# define ULINE_BLUE "\033[4;34m"
-# define ULINE_PURPLE "\033[4;35m"
-# define ULINE_CYAN "\033[4;36m"
-# define ULINE_WHITE "\033[4;37m"
-
 // TYPE STATUS
 # define GAME_OVER 100
 # define GAME_ERROR -200
 # define MAP_ERROR -300
 # define RENDER_ERROR -400
 # define MLX_ERROR -500
+# define SYS_ERROR -600
 
 // SUCCESS
 # define SUCCESS 101
@@ -60,14 +52,22 @@
 # define INV_MAP_ARG -202
 
 // MAP ERRORS
-# define FAIL_MAP_ALLOC -301
-# define FAIL_OPEN_FILE -302
 # define INVAL_DIMENTIONS -303
+# define FAIL_MAP_ALLOC -302
 # define INVAL_N_ENTITIES -304
 # define INVAL_WALL -305
+# define INVAL_OBJECT -306
+# define INAVAL_GAME -307
+# define DOBLE_PLAYER -308
+# define DOBLE_EXIT -309
+# define NO_COLLECTABLE -310
 
 // MLX ERROS
 # define FAIL_CONNEC -501
 # define FAIL_WIN -502
+
+// SYSTEM ERROS
+# define FAIL_OPEN_FILE -601
+# define FAIL_MEM_ALLOC -602
 
 #endif

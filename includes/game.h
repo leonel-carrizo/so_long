@@ -15,7 +15,7 @@
 
 # include "so_long.h"
 
-int		exit_game(t_game *game, int status, int errnum);
+int		exit_game(t_game *game, int errnum);
 int		check_valid_path(t_game *game);
 int		init_game(t_game *game, char *map_path);
 int		print_message(int status, int errnum);

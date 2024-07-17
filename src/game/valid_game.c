@@ -22,24 +22,22 @@ static int	**create_matrix(t_map map)
 	int	j;
 	int	**temp;
 
-	i = 0;
+	i = -1;
 	temp = malloc((map.height - 1) * sizeof(int *));
-	while (i < (map.height - 1))
+	if (!temp)
+		return(0);
+	while (++i < (map.height - 1))
 	{
 		temp[i] = malloc((map.width - 1) * sizeof(int));
 		if (!temp[i])
 		{
-			j = 0;
-			while (j < i)
-			{
+			j = -1;
+			while (++j < i)
 				free(temp[j]);
-				j++;
-			}
 			free(temp);
-			return (0);
+			return(0);
 		}
 		ft_memset(temp[i], 0, (map.width - 1) * sizeof(int));
-		i++;
 	}
 	return (temp);
 }
@@ -122,7 +120,7 @@ int	check_valid_path(t_game *game)
 	found = 0;
 	visited = create_matrix(game->map);
 	if (!visited)
-		return (0);
+		return (print_message(SYS_ERROR, FAIL_MEM_ALLOC));
 	found = dfs_explore(game->map, player_row, player_col, visited);
 	i = 0;
 	while (i < (game->map.height - 1))

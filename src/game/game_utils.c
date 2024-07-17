@@ -56,8 +56,8 @@ void	init_structs(t_game *game)
 /* Display custom error message in shell  */
 int	print_message(int status, int errnum)
 {
-	if (!status)
-		ft_printf("%sGAME OVER:\n%s🥳 Sali! 🥳\n", B_C_GREEN, C_GREEN);
+	if (status == 0)
+		return (errnum);
 	if (status == GAME_OVER)
 	{
 		if (errnum == USER_WIN)
@@ -78,7 +78,7 @@ int	print_message(int status, int errnum)
 }
 
 /* Release the resources assigned to the game */
-int	exit_game(t_game *game, int status, int errnum)
+int	exit_game(t_game *game, int errnum)
 {
 	free_map(&game->map);
 	if (game->img_wall)
@@ -100,5 +100,5 @@ int	exit_game(t_game *game, int status, int errnum)
 	}
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
-	exit(print_message(status, errnum));
+	exit(errnum);
 }

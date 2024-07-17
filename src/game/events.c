@@ -61,7 +61,10 @@ int	key_press(int keycode, t_game *game)
 	int	valid;
 
 	if (keycode == ESC)
-		exit_game(game, GAME_OVER, USER_CLOSES);
+	{
+		print_message(GAME_OVER, USER_CLOSES);
+		exit_game(game, 0);
+	}
 	new_x = game->player.position.x;
 	new_y = game->player.position.y;
 	valid = is_valid_move(game->map, new_x, new_y, keycode);
@@ -72,6 +75,9 @@ int	key_press(int keycode, t_game *game)
 		draw_map(game, new_x, new_y);
 	}
 	if (game->player.won)
-		exit_game(game, GAME_OVER, USER_WIN);
+	{
+		print_message(GAME_OVER, USER_WIN);
+		exit_game(game, 0);
+	}
 	return (0);
 }

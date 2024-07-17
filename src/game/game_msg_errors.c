@@ -23,5 +23,8 @@ void	game_error_message(int errnum)
 		ft_printf("%sError:\nFail to set up the connection to the X server\n",
 			C_RED);
 	else if ( errnum == FAIL_WIN)
-		ft_printf("Error:\nFail to create a new window\n", C_RED);
+		ft_printf("%sError:\nFail to create a new window\n", C_RED);
+	else if ( errnum == INAVAL_GAME)
+		ft_printf("%sError:\nImposible game. \
+		\nThe Player does not have access to the exit Or all collectibles.\n", C_RED);
 }

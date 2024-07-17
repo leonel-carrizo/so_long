@@ -46,11 +46,16 @@ static int	valid_num_entities(char *str, int end)
 			found_e++;
 		else if (*str == COLLECTIBLE)
 			found_c++;
-		if (found_e > 1 || found_p > 1)
-			return (INVAL_N_ENTITIES);
+		if (found_e > 1)
+			return (print_message(MAP_ERROR, DOBLE_EXIT));
+		if (found_p > 1)
+			return (print_message(MAP_ERROR, DOBLE_PLAYER));
 	}
-	if (end == 1 && (found_c == 0 || found_e != 1 || found_p != 1))
-		return (INVAL_N_ENTITIES);
+	if (end == 1)
+	{
+		if ((found_c == 0 || found_e != 1 || found_p != 1))
+			return (print_message(MAP_ERROR, INVAL_N_ENTITIES));
+	}
 	return (SUCCESS);
 }
 
@@ -62,7 +67,7 @@ static int	valid_dimentions(char *line, char *str)
 	len = ft_strlen(line) - 1;
 	if (!len || (str && (len + 1 != ((int)ft_strlen(str)))))
 	{
-		free(str);
+		print_message(MAP_ERROR, INVAL_DIMENTIONS);
 		return (INVAL_DIMENTIONS);
 	}
 	return (len);
@@ -73,7 +78,10 @@ static int	valid_wall_pos(t_game *game, char *line, int len, int end)
 	if ((!line)	|| ((line[0] != WALL) || (line[game->map.width - 1] != WALL)
 			|| (game->map.height == 0 && line[len - 1] != WALL)
 			|| (end && line[len - 1] != WALL)))
+	{
+		print_message(MAP_ERROR, INVAL_WALL);
 		return (INVAL_WALL);
+	}
 	return (SUCCESS);
 }
 
@@ -92,12 +100,12 @@ int	check_map_line(t_game *game, char *line, char *str, int end)
 	{
 		found = ft_strchr(VALID_CHAR, line[len - 1]);
 		if (!found)
-			return (INVAL_N_ENTITIES);
+			return (print_message(MAP_ERROR, INVAL_OBJECT));
 		num_entities = valid_num_entities(found, end);
 		if (num_entities < 1)
 			return (num_entities);
 		wall_pos = valid_wall_pos(game, line, len, end);
-		if (!wall_pos)
+		if (wall_pos < 1)
 			return (wall_pos);
 		len--;
 	}
