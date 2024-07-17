@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:42:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/29 15:18:58 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/07/17 21:26:55 by lcarrizo         ###    ###london.com    */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ void	update_map(t_game *game, int x, int y)
 	game->map.tiles[pos_y][pos_x] = PLAYER;
 	if (game->map.n_collect == 0)
 		game->map.exit.is_open = 1;
-	if (game->player.position.x == game->map.exit.pos.x
+	if ((game->player.position.x == game->map.exit.pos.x
 		&& game->player.position.y == game->map.exit.pos.y)
+		&& game->map.exit.is_open == 1)
 		game->player.won = 1;
 }
 
