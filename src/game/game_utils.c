@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_game.c                                       :+:      :+:    :+:   */
+/*   game_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:47:49 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/29 15:19:03 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/07/18 10:00:26 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,7 @@ int	exit_game(t_game *game, int errnum)
 	}
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
+	if (!errnum)
+		exit(EXIT_SUCCESS);
 	exit(errnum);
 }
