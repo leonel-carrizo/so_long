@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizu@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 20:17:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/06/29 15:18:00 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/07/18 14:38:32 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ int	main(int argc, char *argv[])
 	t_game	game;
 
 	if (argc != 2)
-		return (print_message(GAME_ERROR, INV_N_ARG));
-	if (is_valid_map_arg(argv[1]) < 1)
-		return (print_message(GAME_ERROR, INV_MAP_ARG));
+		 return (print_error_msg(GAME_ERROR, INV_N_ARG));
+	if (is_valid_map_arg(argv[1]) != SUCCESS)
+		return (print_error_msg(GAME_ERROR, INV_MAP_FILE));
 	init_structs(&game);
 	start = init_game(&game, argv[1]);
-	if (start < 1)
-		return (exit_game(&game, start));
+	if (start != SUCCESS)
+		return (start);
 	draw_map(&game, 0, 0);
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.win, 17, 1L << 0, exit_game, &game);

@@ -60,8 +60,8 @@ int	key_press(int keycode, t_game *game)
 
 	if (keycode == ESC)
 	{
-		print_message(GAME_OVER, USER_CLOSES);
-		exit_game(game, 0);
+		ft_printf("%sGAME OVER:\n%s%s\n", BC_GREEN, C_YELLOW, USER_EXIT);
+		exit_game(game, GAME_OVER);
 	}
 	new_x = game->player.position.x;
 	new_y = game->player.position.y;
@@ -74,8 +74,8 @@ int	key_press(int keycode, t_game *game)
 	}
 	if (game->player.won)
 	{
-		print_message(GAME_OVER, USER_WIN);
-		exit_game(game, 0);
+		ft_printf("%sGAME OVER:\n%s%s\n", BC_GREEN, C_GREEN, MSG_YOU_WIN);
+		exit_game(game, SUCCESS);
 	}
 	return (0);
 }

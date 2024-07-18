@@ -19,7 +19,7 @@ int	allocate_map(t_map *map, int width, int height)
 
 	map->tiles = (char **)malloc(height * sizeof(char *));
 	if (!map->tiles)
-		return (print_message(SYS_ERROR, FAIL_MAP_ALLOC));
+		return (FAIL_MAP_ALLOC);
 	i = 0;
 	while (i < height)
 	{
@@ -30,7 +30,7 @@ int	allocate_map(t_map *map, int width, int height)
 			{
 				free(map->tiles[i]);
 				i--;
-				return (print_message(SYS_ERROR, FAIL_MAP_ALLOC));
+				return (FAIL_MAP_ALLOC);
 			}
 		}
 		i++;
@@ -47,7 +47,7 @@ int	fill_map(t_game *game, char *file_path)
 
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
-		return (print_message(SYS_ERROR, FAIL_OPEN_FILE));
+		return (FAIL_OPEN_FILE);
 	i = 0;
 	line = get_next_line(fd);
 	while (line != NULL)
@@ -77,7 +77,7 @@ static int	pre_checks(t_game *game, char **line, int ok[])
 	if (!*line && temp)
 		end = 1;
 	check_line = check_map_line(game, *line, temp, end);
-	if (check_line < 1)
+	if (check_line != SUCCESS)
 	{
 		(*ok) = check_line;
 		free(temp);
@@ -88,7 +88,7 @@ static int	pre_checks(t_game *game, char **line, int ok[])
 		ft_strlcpy(temp, *line, game->map.width + 2);
 	if (end)
 		free(temp);
-	return ((*ok));
+	return (SUCCESS);
 }
 
 /* Count map dimensions from file */
@@ -105,7 +105,7 @@ static int	count_map_dimensions(t_game *game, char *file_path)
 	game->map.width = ft_strlen(line) - 1;
 	while (line != NULL)
 	{
-		if (ok > 0)
+		if (ok == SUCCESS)
 			pre_checks(game, &line, &ok);
 		game->map.height++;
 		free(line);
@@ -116,9 +116,9 @@ static int	count_map_dimensions(t_game *game, char *file_path)
 			line = NULL;
 		}
 	}
-	if (ok < 1)
+	if (ok != SUCCESS)
 		return (ok);
-	return (1);
+	return (SUCCESS);
 }
 
 /* Load the map from the specified file */
@@ -127,20 +127,20 @@ int	load_map(t_game *game, char *file_path)
 	int	dimensions;
 	int	alloc_map;
 	int	init_map;
-	int	valid_map;
+	int	valid_player_path;
 
 	dimensions = count_map_dimensions(game, file_path);
-	if (dimensions < 1)
+	if (dimensions != SUCCESS)
 		return (dimensions);
 	alloc_map = allocate_map(&game->map, game->map.width, game->map.height);
 	if (alloc_map < 1)
 		return (alloc_map);
 	init_map = fill_map(game, file_path);
-	if (init_map < 1)
+	if (init_map != SUCCESS)
 		return (init_map);
 	parse_map_entities(game);
-	valid_map = check_valid_path(game);
-	if (valid_map < 1)
-		return (print_message(GAME_ERROR, INAVAL_GAME));
+	valid_player_path = check_valid_path(game);
+	if (valid_player_path != SUCCESS)
+		return (valid_player_path);
 	return (SUCCESS);
 }

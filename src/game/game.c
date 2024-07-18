@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:42:10 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/07/17 21:26:55 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/07/18 12:00:06 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,16 @@ int	init_game(t_game *game, char *map_path)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 	{
-		print_message(MLX_ERROR, FAIL_CONNEC);
+		print_error_msg(MLX_ERROR, FAIL_CONNEC);
 		return (FAIL_CONNEC);
 	}
 	map_loaded = load_map(game, map_path);
-	if (map_loaded < 1)
-		return (map_loaded);
+	if (map_loaded != SUCCESS)
+		return (print_error_msg(MAP_ERROR, map_loaded));
 	init_images(game);
 	game->win = mlx_new_window(game->mlx, game->map.width * TILE_SIZE,
 			game->map.height * TILE_SIZE, WIN_TITLE);
 	if (!game->win)
-	{
-		print_message(MLX_ERROR, FAIL_WIN);
-		return (FAIL_WIN);
-	}
+		return (print_error_msg(MLX_ERROR, FAIL_WIN));
 	return (SUCCESS);
 }

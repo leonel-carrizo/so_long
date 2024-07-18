@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:48:07 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/07/15 14:48:42 by lcarrizo         ###    ###london.com    */
+/*   Updated: 2024/07/18 11:43:02 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,42 +33,40 @@
 # define BC_CYAN "\033[1;36m"
 # define BC_WHITE "\033[1;37m"
 
-// TYPE STATUS
-# define GAME_OVER 100
-# define GAME_ERROR -200
-# define MAP_ERROR -300
-# define RENDER_ERROR -400
-# define MLX_ERROR -500
-# define SYS_ERROR -600
-
-// SUCCESS
-# define SUCCESS 101
-# define USER_WIN 102
-# define USER_LOST 103
-# define USER_CLOSES 104
+// TYPE STATUROR
+# define FAIL 0
+# define SUCCESS 1
+# define GAME_OVER 0
+# define USER_WIN 0
+# define USER_CLOSES 0
+# define USER_LOST 0
+# define GAME_ERROR 2
+# define MAP_ERROR 3
+# define MLX_ERROR 4
+# define SYS_ERROR 5
 
 // INIT GAME ERRORS
-# define INV_N_ARG -201
-# define INV_MAP_ARG -202
+# define INV_N_ARG 100
+# define INV_MAP_FILE 101  
 
 // MAP ERRORS
-# define INVAL_DIMENSIONS -303
-# define FAIL_MAP_ALLOC -302
-# define INVAL_N_ENTITIES -304
-# define INVAL_WALL -305
-# define INVAL_OBJECT -306
-# define INAVAL_GAME -307
-# define DOBLE_PLAYER -308
-# define DOBLE_EXIT -309
-# define NO_COLLECTABLE -310
+# define INVAL_DIMENSIONS 120
+# define FAIL_MAP_ALLOC 121
+# define INVAL_N_ENTITIES 122
+# define INVAL_WALL 123
+# define INVAL_OBJECT 124
+# define INAVAL_GAME 125
+# define DOBLE_PLAYER 126
+# define DOBLE_EXIT 127
+# define NO_COLLECTABLE 128
 
 // MLX ERROS
-# define FAIL_CONNEC -501
-# define FAIL_WIN -502
+# define FAIL_CONNEC 130
+# define FAIL_WIN 131
 
 // SYSTEM ERROS
-# define FAIL_OPEN_FILE -601
-# define FAIL_MEM_ALLOC -602
+# define FAIL_MEM_ALLOC 141
+# define FAIL_OPEN_FILE 142 
 
 // ERROR MESSAGES
 # define MSG_YOU_WIN "🥳 Congratulations YOU WIN! 🥳\n"

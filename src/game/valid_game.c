@@ -100,9 +100,9 @@ static int	dfs_explore(t_map map, int row, int col, int **visited)
 		if ((is_valid_position(map, new_row, new_col))
 			&& !visited[new_row][new_col])
 			if (dfs_explore(map, new_row, new_col, visited))
-				return (1);
+				return (SUCCESS);
 	}
-	return (0);
+	return (INAVAL_GAME);
 }
 
 /* Check if there is a valid path to collect all the collectibles
@@ -120,7 +120,7 @@ int	check_valid_path(t_game *game)
 	found = 0;
 	visited = create_matrix(game->map);
 	if (!visited)
-		return (print_message(SYS_ERROR, FAIL_MEM_ALLOC));
+		return (FAIL_MEM_ALLOC);
 	found = dfs_explore(game->map, player_row, player_col, visited);
 	i = 0;
 	while (i < (game->map.height - 1))

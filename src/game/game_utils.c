@@ -6,7 +6,7 @@
 /*   By: lcarrizo <lcarrizo@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:47:49 by lcarrizo          #+#    #+#             */
-/*   Updated: 2024/07/18 10:00:26 by lcarrizo         ###   ########.fr       */
+/*   Updated: 2024/07/18 11:57:42 by lcarrizo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,22 @@ int	is_valid_map_arg(const char *path)
 {
 	int			len;
 	int			len_e;
-	const char	*ext;
+	int			fd;
 
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+	{
+		perror("Opening file");
+		close(fd);
+		return (INV_MAP_FILE);
+	}
+	close(fd);
 	len = ft_strlen(path);
-	len_e = 4;
-	ext = ".ber";
+	len_e = ft_strlen(FILE_EXTENSION);
 	while (--len_e)
 	{
-		if (path[--len] != ext[len_e])
-			return (INV_MAP_ARG);
+		if (path[--len] != FILE_EXTENSION[len_e])
+			return (INV_MAP_FILE);
 	}
 	return (SUCCESS);
 }
@@ -54,31 +61,17 @@ void	init_structs(t_game *game)
 }
 
 /* Display custom error message in shell  */
-int	print_message(int status, int errnum)
+int	print_error_msg(int errtype, int errnum)
 {
-	if (status == 0)
-		return (errnum);
-	if (status == GAME_OVER)
-	{
-		if (errnum == USER_WIN)
-			ft_printf("%sGAME OVER:\n%s%s\n", BC_GREEN, C_GREEN, MSG_YOU_WIN);
-		else if (errnum == USER_LOST)
-			ft_printf("%sGAME OVER:\n%s%s\n", BC_GREEN, C_RED, MSG_YOU_LOST);
-		else if (errnum == USER_CLOSES)
-			ft_printf("%sGAME OVER:\n%s%s\n", BC_GREEN, C_YELLOW, USER_EXIT);
-		return (0);
-	}
-	else if (status == GAME_ERROR)
+	if (errtype == GAME_ERROR)
 		game_error_message(errnum);
-	else if (status == MAP_ERROR)
+	else if (errtype == MAP_ERROR)
 		map_error_message(errnum);
-	else if (status == RENDER_ERROR)
-		render_error_message(errnum);
-	return (errnum);
+	return (errtype);
 }
 
 /* Release the resources assigned to the game */
-int	exit_game(t_game *game, int errnum)
+int	exit_game(t_game *game, int status)
 {
 	free_map(&game->map);
 	if (game->img_wall)
@@ -100,7 +93,7 @@ int	exit_game(t_game *game, int errnum)
 	}
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
-	if (!errnum)
-		exit(EXIT_SUCCESS);
-	exit(errnum);
+	if (status != SUCCESS)
+		exit(status);
+	exit(EXIT_SUCCESS);
 }
