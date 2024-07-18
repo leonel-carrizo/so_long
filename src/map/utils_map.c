@@ -59,7 +59,7 @@ static int	valid_num_entities(char *str, int end)
 	return (SUCCESS);
 }
 
-static int	valid_dimentions(char *line, char *str)
+static int	valid_dimentions(t_game *game, char *line, char *str, int end)
 {
 	int	len;
 
@@ -67,6 +67,11 @@ static int	valid_dimentions(char *line, char *str)
 		return (INVAL_DIMENSIONS);
 	len = ft_strlen(line) - 1;
 	if (!len || (str && (len + 1 != ((int)ft_strlen(str)))))
+	{
+		print_message(MAP_ERROR, INVAL_DIMENSIONS);
+		return (INVAL_DIMENSIONS);
+	}
+	else if (end == 1 && game->map.width <= game->map.height)
 	{
 		print_message(MAP_ERROR, INVAL_DIMENSIONS);
 		return (INVAL_DIMENSIONS);
@@ -96,7 +101,7 @@ int	check_map_line(t_game *game, char *line, char *str, int end)
 
 	if (end == 1)
 		line = str;
-	len = valid_dimentions(line, str);
+	len = valid_dimentions(game, line, str, end);
 	if (len <= 0)
 		return (INVAL_DIMENSIONS);
 	while (len)
