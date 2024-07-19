@@ -26,7 +26,7 @@
 # define PLAYER 'P'
 # define VALID_CHAR "01CEP"
 
-int		check_map_line(t_game *game, char *line, char *str, int end);
+int		check_map_line(t_game *game, char *line);
 int		load_map(t_game *game, char *file_path);
 int		allocate_map(t_map *map, int width, int height);
 int		fill_map(t_game *game, char *file_path);

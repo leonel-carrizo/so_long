@@ -67,7 +67,7 @@ int	print_error_msg(int errtype, int errnum)
 		game_error_message(errnum);
 	else if (errtype == MAP_ERROR)
 		map_error_message(errnum);
-	return (errtype);
+	return (errnum);
 }
 
 /* Release the resources assigned to the game */

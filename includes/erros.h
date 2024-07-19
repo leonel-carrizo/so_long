@@ -47,7 +47,7 @@
 
 // INIT GAME ERRORS
 # define INV_N_ARG 100
-# define INV_MAP_FILE 101  
+# define INV_MAP_FILE 101
 
 // MAP ERRORS
 # define INVAL_DIMENSIONS 120
@@ -66,12 +66,12 @@
 
 // SYSTEM ERROS
 # define FAIL_MEM_ALLOC 141
-# define FAIL_OPEN_FILE 142 
+# define FAIL_OPEN_FILE 142
 
 // ERROR MESSAGES
 # define MSG_YOU_WIN "🥳 Congratulations YOU WIN! 🥳\n"
 # define MSG_YOU_LOST "💀 You lost, try again! 💀\n"
-# define USER_EXIT " You have abandoned the game.\n Difficult one?"
+# define USER_EXIT "You have abandoned the game.\n"
 # define MSG_INV_PATH "The player cannot access the exit or all collectibles.\n"
 # define MSG_FAIL_WIN "Fail to create a new window.\n"
 # define MSG_FAIL_CONNEC "Fail to set up the connection to the X server.\n"
@@ -84,7 +84,7 @@
 	\nThe map must contain 1 player, 1 exit and 1 collectible.\n"
 # define MSG_INV_WALL "The map is not surrounded by walls or blocks.\n"
 # define MSG_INV_OBJ "The map contains an invalid object.\n"
-# define MSG_DOB_EXIT "The map must not contain more than one exit.\n"
-# define MSG_DOB_PLAYER "The map must not contain more than one player.\n"
+# define MSG_DOB_EXIT "The map must not contain more than one EXIT.\n"
+# define MSG_DOB_PLAYER "The map must not contain more than one PLAYER.\n"
 
 #endif

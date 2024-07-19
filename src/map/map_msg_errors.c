@@ -30,4 +30,6 @@ void	map_error_message(int errnum)
 		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_DOB_EXIT);
 	else if (errnum == DOBLE_PLAYER)
 		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_DOB_PLAYER);
+	else if (errnum == INAVAL_GAME)
+		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_INV_PATH);
 }

@@ -41,63 +41,40 @@ int	allocate_map(t_map *map, int width, int height)
 /* Fill the map with the data from the file */
 int	fill_map(t_game *game, char *file_path)
 {
-	int		fd;
-	int		i;
-	char	*line;
+	int			fd;
+	int			ok;
+	char		*line;
+	static int	i = -1;
 
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 		return (FAIL_OPEN_FILE);
-	i = 0;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		ft_strcpy(game->map.tiles[i], line);
+		ft_strcpy(game->map.tiles[++i], line);
+		ok = check_map_line(game, line);
+		if (ok != SUCCESS)
+		{
+			free(line);
+			close(fd);
+			get_next_line(fd);
+			return (ok);
+		}
 		free(line);
-		i++;
 		line = get_next_line(fd);
 	}
 	close(fd);
 	return (SUCCESS);
 }
 
-/*	Check that the map has valid entities,
-that they are in the allowed position
-and that units that must be unique are not repeated. */
-static int	pre_checks(t_game *game, char **line, int ok[])
-{
-	int			check_line;
-	static int	end = 0;
-	static char	*temp = NULL;
-
-	if (game->map.width < 6)
-		(*ok) = INVAL_N_ENTITIES;
-	if (!temp && *line)
-		temp = ft_strdup(*line);
-	if (!*line && temp)
-		end = 1;
-	check_line = check_map_line(game, *line, temp, end);
-	if (check_line != SUCCESS)
-	{
-		(*ok) = check_line;
-		free(temp);
-		temp = NULL;
-		return ((*ok));
-	}
-	if (*line)
-		ft_strlcpy(temp, *line, game->map.width + 2);
-	if (end)
-		free(temp);
-	return (SUCCESS);
-}
-
 /* Count map dimensions from file */
 static int	count_map_dimensions(t_game *game, char *file_path)
 {
-	int			fd;
-	static int	ok = SUCCESS;
-	static char	*line = NULL;
+	int		fd;
+	char	*line;
 
+	line = NULL;
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 		return (FAIL_OPEN_FILE);
@@ -105,19 +82,13 @@ static int	count_map_dimensions(t_game *game, char *file_path)
 	game->map.width = ft_strlen(line) - 1;
 	while (line != NULL)
 	{
-		if (ok == SUCCESS)
-			pre_checks(game, &line, &ok);
 		game->map.height++;
 		free(line);
 		line = get_next_line(fd);
-		if (!line)
-		{
-			pre_checks(game, &line, &ok);
-			line = NULL;
-		}
 	}
-	if (ok != SUCCESS)
-		return (ok);
+	close(fd);
+	if (game->map.width < 5)
+		return (INVAL_N_ENTITIES);
 	return (SUCCESS);
 }
 
