@@ -21,6 +21,7 @@ MLX_DIR			= lib/libmlx/
 INCLUDE			= includes/
 UTILS_DIR		= utils/
 SRC_DIR			= src/
+BONUS_DIR		= bonus
 OBJ_DIR			= .obj/
 
 SRCS_UTILS		= $(wildcard $(UTILS_DIR)*.c)
@@ -28,6 +29,8 @@ OBJ_UTILS		= $(addprefix $(OBJ_DIR)utils/, $(notdir $(SRCS_UTILS:.c=.o)))
 
 SRCS			= $(shell find $(SRC_DIR) -name "*.c")
 OBJ			= $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
+
+BONUS_SRCS		= $(shell find $(BONUS_DIR) -name "*.c")
 
 #############################    COMMANDS   ##################################
 CC			= cc
@@ -70,8 +73,12 @@ $(OBJ_DIR)utils/%.o:		$(UTILS_DIR)%.c
 
 # create executables which can be debugged with gdb.
 debug:				$(LIBFT) $(MLX) $(LIBMLX)
-				$(CC) $(CFLAGS) $(SRCS) $(wildcard $(UTILS_DIR)/*.c) $(LIBFT) $(MLXFLAGS) $(LIBMLX) -o $(NAME) -g
+				$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(MLXFLAGS) $(LIBMLX) -o $(NAME) -g
 					@echo "Debugables Created!"
+
+bonus:			 	$(LIBFT) $(MLX) $(LIBMLX)
+				$(CC) $(CFLAGS) $(BONUS_SRCS) $(LIBFT) $(MLXFLAGS) $(LIBMLX) -o $(NAME) -g
+				@echo "so_long bonus created!"
 
 clean:
 				$(RM) $(OBJ_DIR)
@@ -88,4 +95,4 @@ fclean:				clean
 
 re:				fclean all
 
-.PHONY: 			all clean fclean re debug
+.PHONY: 			all clean fclean re debug bonus
