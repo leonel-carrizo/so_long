@@ -59,10 +59,12 @@
 # define DOBLE_PLAYER 126
 # define DOBLE_EXIT 127
 # define NO_COLLECTABLE 128
+# define EMPY_MAP 129
+# define NO_OPEN_FILE 130
 
 // MLX ERROS
-# define FAIL_CONNEC 130
-# define FAIL_WIN 131
+# define FAIL_CONNEC 131
+# define FAIL_WIN 132
 
 // SYSTEM ERROS
 # define FAIL_MEM_ALLOC 141
@@ -86,5 +88,7 @@
 # define MSG_INV_OBJ "The map contains an invalid object.\n"
 # define MSG_DOB_EXIT "The map must not contain more than one EXIT.\n"
 # define MSG_DOB_PLAYER "The map must not contain more than one PLAYER.\n"
+# define MSG_EMPTY_MAP "The map file could not be read. Is it empty?\n"
+# define MSG_NO_OPEN_FILE "Failed opening map file, check permissions or path.\n"
 
 #endif

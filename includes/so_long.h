@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <errno.h>
+# include <string.h>
 # include "render.h"
 # include "types.h"
 # include "map.h"

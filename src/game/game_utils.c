@@ -22,9 +22,8 @@ int	is_valid_map_arg(const char *path)
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{
-		perror("Opening file");
 		close(fd);
-		return (INV_MAP_FILE);
+		return (NO_OPEN_FILE);
 	}
 	close(fd);
 	len = ft_strlen(path);

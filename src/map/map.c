@@ -79,6 +79,8 @@ static int	count_map_dimensions(t_game *game, char *file_path)
 	if (fd < 0)
 		return (FAIL_OPEN_FILE);
 	line = get_next_line(fd);
+	if (!line)
+		return (EMPY_MAP);
 	game->map.width = ft_strlen(line) - 1;
 	while (line != NULL)
 	{

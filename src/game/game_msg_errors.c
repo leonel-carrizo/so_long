@@ -24,4 +24,10 @@ void	game_error_message(int errnum)
 		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_FAIL_WIN);
 	else if (errnum == INAVAL_GAME)
 		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_INV_PATH);
+	else if (errnum == NO_OPEN_FILE)
+	{
+		ft_printf("%sError:\n%s%s", BC_RED, C_YELLOW, MSG_NO_OPEN_FILE);
+		if(errno > 0)
+			perror("Sysem error");
+	}
 }
