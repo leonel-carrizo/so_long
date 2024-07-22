@@ -22,9 +22,7 @@ int	main(int argc, char *argv[])
 		return (print_error_msg(GAME_ERROR, INV_N_ARG));
 	check_file = is_valid_map_arg(argv[1]);
 	if (check_file != SUCCESS)
-	{	
 		return (print_error_msg(GAME_ERROR, check_file));
-	}
 	init_structs(&game);
 	start = init_game(&game, argv[1]);
 	if (start != SUCCESS)

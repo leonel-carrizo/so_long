@@ -89,6 +89,6 @@
 # define MSG_DOB_EXIT "The map must not contain more than one EXIT.\n"
 # define MSG_DOB_PLAYER "The map must not contain more than one PLAYER.\n"
 # define MSG_EMPTY_MAP "The map file could not be read. Is it empty?\n"
-# define MSG_NO_OPEN_FILE "Failed opening map file, check permissions or path.\n"
+# define MSG_NO_OPEN_FILE "Failed opening map file, check permissions.\n"
 
 #endif
