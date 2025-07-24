@@ -51,7 +51,7 @@ $(MLX):			$(MLX_ZIP)
 			@if [ ! -e $(MLX_DIR) ]; then \
 				unzip -q $(MLX_ZIP); \
 				mv minilibx-linux-master $(MLX_DIR); \
-				make -s -C $(MLX_DIR); \
+				make CC=clang -s -C $(MLX_DIR) 2>/dev/null; \
 			fi
 
 $(MLX_ZIP):
