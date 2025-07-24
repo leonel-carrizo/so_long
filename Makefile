@@ -33,7 +33,7 @@ OBJ			= $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
 BONUS_SRCS		= $(shell find $(BONUS_DIR) -name "*.c")
 
 #############################    COMMANDS   ##################################
-CC			= cc
+CC			= cc -std=gnu11
 RM 			= rm -rf
 CFLAGS			= -Wall -Werror -Wextra -I$(INCLUDE)
 MLXFLAGS		= -L$(MLX_DIR) -I$(MLX_DIR) -lXext -lX11 -lmlx
