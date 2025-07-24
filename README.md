@@ -1,12 +1,11 @@
-
-![C](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white) 
+ ![C](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white) 
 ![Unix](https://img.shields.io/badge/Unix-3E4348?style=for-the-badge&logo=linux&logoColor=white) 
 ![Bash](https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnubash&logoColor=fff)
 ![Makefile](https://img.shields.io/badge/Makefile-1f425f?style=for-the-badge&logo=makefile&logoColor=white)
 ![minilibx](https://img.shields.io/badge/minilibx-F2134F?style=for-the-badge)
 ![So_Long](https://img.shields.io/badge/So_Long-Completed-e68e3a?style=for-the-badge)
-
-# So Long
+ 
+# So Long Game
 ![so_long demo](assets/vokoscreenNG-2025-07-24_09-48-02.gif)
 
 ## Project Description
