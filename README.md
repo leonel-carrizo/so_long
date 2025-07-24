@@ -51,7 +51,7 @@ The project is organized into several modules to separate concerns, primarily fo
     cd so_long
     make
     ```
-2.  Run the game, providing a valid `.ber` map file as an argument. Los mapas de ejemplo están en la carpeta `assets/maps/`, y también puedes crear tus propios mapas personalizados.
+2.  Run the game, providing a valid `.ber` map file as an argument. Example maps are in the `Assets/Maps/` folder, and you can also create your own custom maps.
     ```bash
     ./so_long assets/maps/map.ber # others: map_small.ber map_medium.ber map_so_big.ber
     ```
